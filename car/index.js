@@ -23,7 +23,7 @@
 
 document.querySelector("body").addEventListener("click", document.querySelector("body").requestFullscreen);
 
-const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite,  } = Matter;
+const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite, Events  } = Matter;
 
 // const engine = Engine.create();
 // const render = Render.create({
@@ -77,19 +77,49 @@ Engine.run(engine);
 Render.run(render);
 
 const car = Composites.car(190, 100, 150, 30, 25);
-
+const trackLength = window.innerWidth * 2;
+const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, function(x, y) {
+  return Bodies.rectangle(x, y, 50, 50);
+});
 
 World.add(world, [
   car,
   // walls back and ground
     //ground
-  Bodies.rectangle(0 + window.innerWidth/2, window.innerHeight -15, 2*window.innerWidth, 30, { isStatic: true }),
+  Bodies.rectangle(0 + trackLength/2, window.innerHeight -15, trackLength, 30, { isStatic: true }),
     //start
-  Bodies.rectangle(0 + 15, window.innerHeight/2, 60, window.innerHeight, { isStatic: true })
-
+  Bodies.rectangle(0 + 15, window.innerHeight/2, 60, window.innerHeight, { isStatic: true }),
+    // Flage/Finish line
+  finishLine
 ]);
 
-
+console.log(car);
+console.log(finishLine);
+Events.on(engine, 'collisionActive', (event) => {
+  const carIds = {};
+  car.bodies.forEach(element => carIds[element.id] = true);
+  const finishLineIds = {};
+  finishLine.bodies.forEach(element => finishLineIds[element.id] = true);
+  // console.log(event.pairs);
+  let pairs = event.pairs.filter(pair => {
+    if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
+      if (finishLineIds[pair.bodyA.id] || finishLineIds[pair.bodyB.id]) {
+        pair.bodyA.render.fillStyle = '#03fc2c';
+        pair.bodyB.render.fillStyle = '#03fc2c';
+        // console.log("You reached the end");
+      }
+    }
+  });
+  
+  // for (var i = 0; i < pairs.length; i++) {
+  //   var pair = pairs[i];
+  //   pair.bodyA.render.fillStyle = '#333';
+  //   pair.bodyB.render.fillStyle = '#333';
+  // }
+  // event.pairs.forEach(function(obj){
+    
+  // });
+})
 
 
 // // get the centre of the viewport
