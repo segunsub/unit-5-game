@@ -18,7 +18,7 @@
 //  introdiv.append(ptag)
 //  ptag.innerText = "The controls are the arrow keys"
 //  instruction.addEventListener('click', () => {
-//  
+//
 // })
 
 document.querySelector("body").addEventListener("click", document.querySelector("body").requestFullscreen);
@@ -64,10 +64,10 @@ const render = Render.create({
   element: document.body,
   engine: engine,
   options: {
-    width: window.innerWidth - 100,
-    height: window.innerHeight,
+    width: screen.width,
+    height: screen.height,
     wireframes: false,
-    background: "#f4f4f8",
+    background: 'url("img/back2.jpg")',
     hasBounds : true
   }
 });
