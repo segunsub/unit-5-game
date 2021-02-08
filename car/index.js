@@ -83,7 +83,7 @@ World.add(world, [
   car,
   // walls back and ground
     //ground
-  Bodies.rectangle(0 + window.innerWidth/2, window.innerHeight -15, window.innerWidth, 30, { isStatic: true }),
+  Bodies.rectangle(0 + window.innerWidth/2, window.innerHeight -15, 2*window.innerWidth, 30, { isStatic: true }),
     //start
   Bodies.rectangle(0 + 15, window.innerHeight/2, 60, window.innerHeight, { isStatic: true })
 
@@ -104,10 +104,6 @@ World.add(world, [
 //     world.bounds.max.x = 1100;
 //     world.bounds.max.y = 900;
 
-//     // Render.lookAt(render, car, {
-//     //   x: 190,
-//     //   y: 100
-//     // });
 
 
 
@@ -129,8 +125,11 @@ document.addEventListener('keydown', function(event) {
 }
 });
 
-
-
+let update = setInterval(()=>{
+  Render.lookAt(render, car.bodies, {
+    x: 900,
+    y: 400,
+  }, true)}, 1);
 
 
 
