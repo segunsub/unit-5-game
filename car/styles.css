@@ -1,0 +1,8 @@
+#intro {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("tempintro.jpg");
+    background-size: 100%;
+    background-position: center;
+}
