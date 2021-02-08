@@ -1,25 +1,25 @@
-const body = document.getElementById('body')
-const intro = document.getElementById('intro')
- const buttonstart = document.createElement('button')
- const instruction = document.createElement('button')
- instruction.innerText = "INSTRUCTIONS"
- intro.append(instruction)
- buttonstart.innerText = "START GAME"
- buttonstart.style.position = "center"
- intro.append(buttonstart)
- buttonstart.addEventListener('click', () => {
-   body.removeChild(intro)
-   body.append(instruction)
- })
- let introdiv = document.createElement('div')
- let ptag = document.createElement('p')
- intro.append(introdiv)
- introdiv.style.backgroundColor = "blue"
- introdiv.append(ptag)
- ptag.innerText = "The controls are the arrow keys"
- instruction.addEventListener('click', () => {
-   
-})
+// const body = document.getElementById('body')
+// const intro = document.getElementById('intro')
+//  const buttonstart = document.createElement('button')
+//  const instruction = document.createElement('button')
+//  instruction.innerText = "INSTRUCTIONS"
+//  intro.append(instruction)
+//  buttonstart.innerText = "START GAME"
+//  buttonstart.style.position = "center"
+//  intro.append(buttonstart)
+//  buttonstart.addEventListener('click', () => {
+//    body.removeChild(intro)
+//    body.append(instruction)
+//  })
+//  let introdiv = document.createElement('div')
+//  let ptag = document.createElement('p')
+//  intro.append(introdiv)
+//  introdiv.style.backgroundColor = "blue"
+//  introdiv.append(ptag)
+//  ptag.innerText = "The controls are the arrow keys"
+//  instruction.addEventListener('click', () => {
+//  
+// })
  
  
  
@@ -73,8 +73,8 @@ const render = Render.create({
   element: document.body,
   engine: engine,
   options: {
-    width: 1900,
-    height: 400,
+    width: window.innerWidth,
+    height: window.innerHeight,
     wireframes: false,
     background: "#f4f4f8",
     hasBounds : true
@@ -121,10 +121,10 @@ document.addEventListener('keydown', function(event) {
   const key = event.key;
   switch (event.key) {
     case "ArrowLeft":
-      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: -0.5, y: 0});
+      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: -0.03, y: 0});
         break;
     case "ArrowRight":
-      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: 0.5, y: 0});
+      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: 0.03, y: 0});
         break;
     // case "ArrowUp":
     //     // Up pressed
