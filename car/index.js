@@ -20,19 +20,10 @@
 //  instruction.addEventListener('click', () => {
 //  
 // })
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite,  } = Matter;
+
+document.querySelector("body").addEventListener("click", document.querySelector("body").requestFullscreen);
+
+const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite,  } = Matter;
 
 // const engine = Engine.create();
 // const render = Render.create({
@@ -73,7 +64,7 @@ const render = Render.create({
   element: document.body,
   engine: engine,
   options: {
-    width: window.innerWidth,
+    width: window.innerWidth - 100,
     height: window.innerHeight,
     wireframes: false,
     background: "#f4f4f8",
@@ -91,8 +82,11 @@ const car = Composites.car(190, 100, 150, 30, 25);
 World.add(world, [
   car,
   // walls back and ground
-  Bodies.rectangle(400, 400, 1300, 30, { isStatic: true }),
-  Bodies.rectangle(0, 200, 60, 420, { isStatic: true })
+    //ground
+  Bodies.rectangle(0 + window.innerWidth/2, window.innerHeight -15, window.innerWidth, 30, { isStatic: true }),
+    //start
+  Bodies.rectangle(0 + 15, window.innerHeight/2, 60, window.innerHeight, { isStatic: true })
+
 ]);
 
 
