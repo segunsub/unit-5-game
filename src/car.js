@@ -29,6 +29,7 @@ class Car {
         // carcircle.render.fillStyle = 'transparent';
         // carcircle2.render.fillStyle = 'transparent';
         carcircle2.render.sprite.texture = this.textures.wheels;
+        Body.setDensity(this.car.bodies[0], 0.0012)
         return this.car;
     };
 
@@ -47,6 +48,7 @@ class Car {
             }
         } else {
             console.log("Out of gas");
+            //show icon out of gas
         }
     }
 
@@ -54,17 +56,35 @@ class Car {
             
         const carIds = {};
         this.car.bodies.forEach(element => carIds[element.id] = true);
-        const targetIds = {};
-        target.bodies.forEach(element => targetIds[element.id] = true);
-
-        let pairs = event.pairs.filter(pair => {
-            if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
-            if (targetIds[pair.bodyA.id] || targetIds[pair.bodyB.id]) {
-                pair.bodyA.render.fillStyle = '#03fc2c';
-                pair.bodyB.render.fillStyle = '#03fc2c';
-                console.log("You reached the target");
-            }
-            }
-        });
+        // console.log(target);
+        if(target.matter.type === "composite"){
+            const targetIds = {};
+            target.bodies.forEach(element => targetIds[element.id] = true);
+    
+            let pairs = event.pairs.filter(pair => {
+                if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
+                if (targetIds[pair.bodyA.id] || targetIds[pair.bodyB.id]) {
+                    pair.bodyA.render.fillStyle = '#03fc2c';
+                    pair.bodyB.render.fillStyle = '#03fc2c';
+                    console.log("You reached the target");
+                    target.collision(this);
+                }
+                }
+            });            
+        } else if(target.matter.type === "body") {
+            // console.log(event.pairs);
+            const targetIds = {};
+            targetIds[target.matter.id] = true;
+            let pairs = event.pairs.filter(pair => {
+                if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
+                if (targetIds[pair.bodyA.id] || targetIds[pair.bodyB.id]) {
+                    pair.bodyA.render.fillStyle = '#03fc2c';
+                    pair.bodyB.render.fillStyle = '#03fc2c';
+                    console.log("You reached the target");
+                    target.collision(this);
+                }
+                }
+            }); 
+        }
     }
 };
