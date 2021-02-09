@@ -66,8 +66,8 @@ class Car {
                 if (targetIds[pair.bodyA.id] || targetIds[pair.bodyB.id]) {
                     pair.bodyA.render.fillStyle = '#03fc2c';
                     pair.bodyB.render.fillStyle = '#03fc2c';
-                    console.log("You reached the target");
-                    target.collision(this);
+                    // console.log("You reached the target");
+                    return target.collision(this);
                 }
                 }
             });            
@@ -80,8 +80,8 @@ class Car {
                 if (targetIds[pair.bodyA.id] || targetIds[pair.bodyB.id]) {
                     pair.bodyA.render.fillStyle = '#03fc2c';
                     pair.bodyB.render.fillStyle = '#03fc2c';
-                    console.log("You reached the target");
-                    target.collision(this);
+                    // console.log("You reached the target");
+                    return target.collision(this);
                 }
                 }
             }); 

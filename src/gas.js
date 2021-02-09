@@ -1,5 +1,5 @@
 class Gas {
-    constructor(x, y, texture, amount = 15){
+    constructor(x, y, texture, amount = 30){
         this.position = {
             x: x,
             y: y
@@ -24,11 +24,17 @@ class Gas {
     }
 
     collision(obj){
-        console.log("here");
-        console.log(obj.gas);
-        obj.gas += this.amount;
+        obj.gas = 100;
         this.amount = 0;
-        console.log(obj.gas);
-        return obj;
+        // this.matter.render.sprite = {
+        //     texture: this.texture,
+        //     xOffset: 0,
+        //     xScale: 0,
+        //     yOffset: 0,
+        //     yScale: 0
+        // }
+        World.remove(world, this.matter);
+        console.log(this.matter);
+        return this;
     }
 }

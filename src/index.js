@@ -12,11 +12,12 @@
 //    body.append(instruction)
 //  })
 //  let introdiv = document.createElement('div')
-//  let ptag = document.createElement('p')
+ let ptag = document.createElement('p')
 //  intro.append(introdiv)
 //  introdiv.style.backgroundColor = "blue"
 //  introdiv.append(ptag)
-//  ptag.innerText = "The controls are the arrow keys"
+ ptag.innerText = "The controls are the arrow keys"
+ ptag.classList.add('instruc')
 //  instruction.addEventListener('click', () => {
 //
 // })
@@ -24,7 +25,6 @@
 document.querySelector("body").addEventListener("click", document.querySelector("body").requestFullscreen);
 
 const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite, Events  } = Matter;
-
 
 // // create engine
 const engine = Engine.create(), world = engine.world;
@@ -44,6 +44,18 @@ const render = Render.create({
     showShadows: true,
   }
 });
+let instructioncontainer = document.createElement('div')
+body.append(instructioncontainer)
+instructioncontainer.classList.add('container')
+instructioncontainer.innerText = " this is the end of the game "
+  let button = document.createElement('button')
+  button.classList.add('controls')
+  button.innerText = "Instructions"
+  body.append(button)
+  instructioncontainer.append(ptag)
+  button.addEventListener('click', (e) => {
+    console.log('hello')
+  })
 console.log(render)
 
 Engine.run(engine);
@@ -51,12 +63,6 @@ Engine.run(engine);
 Render.run(render);
 const camcircle = Bodies.circle(400, 88, 5)
 // const carBodynew = Bodies.rectangle(230, 640, 200, 90);
-
-
-
-
-
-
 
 const camline = Bodies.rectangle(0 + trackLength/2, 190, trackLength, 20, { isStatic: true,render: { opacity: 0.5 }})
 Body.setDensity(camcircle, 2.2);
@@ -72,6 +78,9 @@ const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/ca
 console.log(newCar);
 const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
 console.log(newGas);
+
+// const newGame = new Game(newCar, window.innerWidth * 20, newGas);
+
 World.add(world, [
   newGas.matter,
   newCar.car,
@@ -178,3 +187,4 @@ let update = setInterval(()=>{
 }, 1);
 
 console.log(render);
+console.log(ground)
