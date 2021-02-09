@@ -47,7 +47,7 @@ Engine.run(engine);
 Render.run(render);
 const camcircle = Bodies.circle(400, 188, 5)
 // const carBodynew = Bodies.rectangle(230, 640, 200, 90);
-const car = Composites.car(400, trackLength/2, 490, 50, 60);
+const car = Composites.car(400, screen.height -50, 490, 50, 60);
 const carBody = car.bodies[0];
 carBody.render.sprite = {
   texture: "../img/car-body.png",
