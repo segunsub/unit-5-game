@@ -47,23 +47,10 @@ Engine.run(engine);
 Render.run(render);
 const camcircle = Bodies.circle(400, 188, 5)
 // const carBodynew = Bodies.rectangle(230, 640, 200, 90);
-const car = Composites.car(400, screen.height -50, 490, 50, 60);
-const carBody = car.bodies[0];
-carBody.render.sprite = {
-  texture: "../img/car-body.png",
-  xOffset: 0.5,
-  xScale: 1,
-  yOffset: 0.9,
-  yScale: 1.3
-}
 
-const carcircle = car.bodies[1];
-carcircle.render.sprite.texture = '../img/car-wheel.png';
-const carcircle2 = car.bodies[2];
-carcircle.render.fillStyle = 'transparent';
-carcircle2.render.fillStyle = 'transparent';
 
-carcircle2.render.sprite.texture = '../img/car-wheel.png';
+
+
 // car.bodies.push(carBody);
 // Composite.add(car, Constraint.create({
 //   bodyA: carBody,
@@ -86,7 +73,7 @@ const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, functio
 const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
 
 
-const newCar = new Car(400, screen.height - 70,"../img/car-body.png", '../img/car-wheel.png')
+const newCar = new Car(400, screen.height - 150,"../img/car-body.png", '../img/car-wheel.png')
 console.log(newCar);
 const newGas = new Gas(410, screen.height - 70);
 console.log(newGas);
@@ -104,24 +91,24 @@ World.add(world, [
   // finishLine
 ]);
 
-console.log(car);
-console.log(finishLine);
-console.log(wall);
-Events.on(engine, 'collisionActive', (event) => {
-  const carIds = {};
-  car.bodies.forEach(element => carIds[element.id] = true);
-  const finishLineIds = {};
-  finishLine.bodies.forEach(element => finishLineIds[element.id] = true);
-  // console.log(event.pairs);
-  let pairs = event.pairs.filter(pair => {
-    if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
-      if (finishLineIds[pair.bodyA.id] || finishLineIds[pair.bodyB.id]) {
-        pair.bodyA.render.fillStyle = '#03fc2c';
-        pair.bodyB.render.fillStyle = '#03fc2c';
-        // console.log("You reached the end");
-      }
-    }
-  });
+
+// console.log(finishLine);
+// console.log(wall);
+// Events.on(engine, 'collisionActive', (event) => {
+//   const carIds = {};
+//   car.bodies.forEach(element => carIds[element.id] = true);
+//   const finishLineIds = {};
+//   finishLine.bodies.forEach(element => finishLineIds[element.id] = true);
+//   // console.log(event.pairs);
+//   let pairs = event.pairs.filter(pair => {
+//     if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
+//       if (finishLineIds[pair.bodyA.id] || finishLineIds[pair.bodyB.id]) {
+//         pair.bodyA.render.fillStyle = '#03fc2c';
+//         pair.bodyB.render.fillStyle = '#03fc2c';
+//         // console.log("You reached the end");
+//       }
+//     }
+//   });
 
   // for (var i = 0; i < pairs.length; i++) {
   //   var pair = pairs[i];
@@ -131,7 +118,7 @@ Events.on(engine, 'collisionActive', (event) => {
   // event.pairs.forEach(function(obj){
 
   // });
-})
+// })
 
 
 // // get the centre of the viewport
@@ -152,11 +139,9 @@ document.addEventListener('keydown', function(event) {
   newCar.move(key);
   switch (event.key) {
     case "ArrowLeft":
-      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: -0.3, y: 0});
       Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: -0.83, y: 0})
       break;
-    case "ArrowRight":
-      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: 0.3, y: 0});
+    case "ArrowRight":  
       Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: 0.83, y: 0});
         
       break;
@@ -177,6 +162,6 @@ document.addEventListener('keydown', function(event) {
 //   }, false)}, 1);
 let update = setInterval(()=>{
 Render.lookAt(render, newCar.car.bodies[0], {
-  x: 400,
+  x: 160,
   y: 700,
 }, false)}, 1);

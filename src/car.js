@@ -26,8 +26,8 @@ class Car {
         const carcircle = this.car.bodies[1];
         carcircle.render.sprite.texture = this.textures.wheels;
         const carcircle2 = this.car.bodies[2];
-        carcircle.render.fillStyle = 'transparent';
-        carcircle2.render.fillStyle = 'transparent';
+        // carcircle.render.fillStyle = 'transparent';
+        // carcircle2.render.fillStyle = 'transparent';
         carcircle2.render.sprite.texture = this.textures.wheels;
         return this.car;
     };
