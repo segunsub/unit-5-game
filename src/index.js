@@ -80,7 +80,7 @@ console.log(newGas);
 World.add(world, [
   newGas.gas,
   newCar.car,
-  car,camcircle,
+camcircle,
   camline,
   // walls back and ground
     //ground
