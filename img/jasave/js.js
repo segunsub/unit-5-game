@@ -18,7 +18,7 @@
 //  introdiv.append(ptag)
 //  ptag.innerText = "The controls are the arrow keys"
 //  instruction.addEventListener('click', () => {
-
+//
 // })
 
 document.querySelector("body").addEventListener("click", document.querySelector("body").requestFullscreen);
@@ -28,7 +28,7 @@ const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Com
 
 // // create engine
 const engine = Engine.create(), world = engine.world;
-
+const trackLength = window.innerWidth * 2;
 // create renderer
 const render = Render.create({
   element: document.body,
@@ -45,26 +45,62 @@ const render = Render.create({
 Engine.run(engine);
 
 Render.run(render);
-const camera = Bodies.rectangle(50,200,50,50)
-const car = Composites.car(190, 100, 150, 30, 25);
-const trackLength = window.innerWidth * 2;
+const camcircle = Bodies.circle(400, 188, 5)
+// const carBodynew = Bodies.rectangle(230, 640, 200, 90);
+const car = Composites.car(400, trackLength/2, 490, 50, 60);
+const carBody = car.bodies[0];
+carBody.render.sprite = {
+  texture: "../img/car-body.png",
+  xOffset: 0.5,
+  xScale: 1,
+  yOffset: 0.9,
+  yScale: 1.3
+}
+
+const carcircle = car.bodies[1];
+carcircle.render.sprite.texture = '../img/car-wheel.png';
+const carcircle2 = car.bodies[2];
+carcircle.render.fillStyle = 'transparent';
+carcircle2.render.fillStyle = 'transparent';
+
+carcircle2.render.sprite.texture = '../img/car-wheel.png';
+// car.bodies.push(carBody);
+// Composite.add(car, Constraint.create({
+//   bodyA: carBody,
+//   bodyB: camcircle,
+//   length: 825,
+//   render: {
+//     visible: true
+//   },
+//   stiffness: 0.8
+// }))
+
+
+const camline = Bodies.rectangle(0 + trackLength/2, 190, trackLength, 20, { isStatic: true,render: { opacity: 0.5 }})
+Body.setDensity(camcircle, 2.2);
+// camline.render.setOpacity(0);
+// camline.bodies.forEach(el => el.render.fillStyle = 'transparent');
 const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, function(x, y) {
   return Bodies.rectangle(x, y, 50, 50);
 });
+const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
 
 World.add(world, [
-  car,camera,
+  
+  car,camcircle,
+  camline,
   // walls back and ground
     //ground
-  Bodies.rectangle(0 + trackLength/2, window.innerHeight -15, trackLength, 30, { isStatic: true }),
+  Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true }),
     //start
-  Bodies.rectangle(0 + 15, window.innerHeight/2, 60, window.innerHeight, { isStatic: true }),
+  wall,
     // Flage/Finish line
-  finishLine
+  // finishLine
 ]);
 
 console.log(car);
 console.log(finishLine);
+console.log(wall);
 Events.on(engine, 'collisionActive', (event) => {
   const carIds = {};
   car.bodies.forEach(element => carIds[element.id] = true);
@@ -80,14 +116,14 @@ Events.on(engine, 'collisionActive', (event) => {
       }
     }
   });
-  
+
   // for (var i = 0; i < pairs.length; i++) {
   //   var pair = pairs[i];
   //   pair.bodyA.render.fillStyle = '#333';
   //   pair.bodyB.render.fillStyle = '#333';
   // }
   // event.pairs.forEach(function(obj){
-    
+
   // });
 })
 
@@ -109,11 +145,14 @@ document.addEventListener('keydown', function(event) {
   const key = event.key;
   switch (event.key) {
     case "ArrowLeft":
-      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: -0.03, y: 0});
-        break;
+      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: -0.3, y: 0});
+      Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: -0.83, y: 0})
+      break;
     case "ArrowRight":
-      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: 0.03, y: 0});
-        break;
+      Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: 0.3, y: 0});
+      Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: 0.83, y: 0});
+        
+      break;
     // case "ArrowUp":
     //     // Up pressed
     //     break;
@@ -123,8 +162,14 @@ document.addEventListener('keydown', function(event) {
 }
 });
 
+// let update = setInterval(()=>{
+//   // camcircle.position.x = car.bodies[0].position.x + 800
+//   Render.lookAt(render, camcircle, {
+//     x: 400,
+//     y: 900,
+//   }, false)}, 1);
 let update = setInterval(()=>{
-  Render.lookAt(render, car.bodies, {
-    x: 900,
-    y: 400,
-  }, false)}, 1);
+Render.lookAt(render, car.bodies[0], {
+  x: 400,
+  y: 700,
+}, false)}, 1);

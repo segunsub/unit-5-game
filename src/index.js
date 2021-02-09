@@ -170,6 +170,6 @@ document.addEventListener('keydown', function(event) {
 //   }, false)}, 1);
 let update = setInterval(()=>{
 Render.lookAt(render, car.bodies[0], {
-  x: 400,
+  x: 170,
   y: 700,
 }, false)}, 1);
