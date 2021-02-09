@@ -88,7 +88,10 @@ const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isSt
 
 const newCar = new Car(400, screen.height - 70,"../img/car-body.png", '../img/car-wheel.png')
 console.log(newCar);
+const newGas = new Gas(410, screen.height - 70);
+console.log(newGas);
 World.add(world, [
+  newGas.gas,
   newCar.car,
   car,camcircle,
   camline,
