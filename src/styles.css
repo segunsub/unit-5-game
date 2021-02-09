@@ -12,6 +12,23 @@ canvas{
   height: 100%;
   width: 100%;
 }
+.container {
+  position: absolute;
+  background-color: white;
+  width: 130px;
+  top: 90px;
+  left: 380px
+}
+.controls {
+  position: absolute;
+  top: 10px;
+  left: 850px;
+}
+.instruc {
+  
+  background-color: blue;
+  
+}
 /* #body {
 background-image: url("tempintro.jpg")
 } */
