@@ -50,7 +50,7 @@ const camcircle = Bodies.circle(400, 188, 5)
 const car = Composites.car(400, trackLength/2, 490, 50, 60);
 const carBody = car.bodies[0];
 carBody.render.sprite = {
-  // texture: "../img/car-body.png",
+  texture: "../img/car-body.png",
   xOffset: 0.5,
   xScale: 1,
   yOffset: 0.9,
@@ -65,25 +65,16 @@ carcircle2.render.fillStyle = 'transparent';
 
 carcircle2.render.sprite.texture = '../img/car-wheel.png';
 // car.bodies.push(carBody);
-Composite.add(car, Constraint.create({
-  bodyA: carBody,
-  bodyB: camcircle,
-  length: 825,
-  render: {
-    visible: true
-  },
-  stiffness: 0.8
-}))
-//var stack = Composites.stack(20, 20, 10, 4, 0, 0, function(x, y) {
-  // if (Common.random() > 0.35) {
-  //   return Bodies.rectangle(x, y, 64, 64, {
-  //       render: {
-  //           strokeStyle: '#ffffff',
-  //           sprite: {
-  //               texture: '//cdn.rawgit.com/liabru/matter-js/2560a681/demo/img/box.png'
-  //           }
-  //       }
-  //   });
+// Composite.add(car, Constraint.create({
+//   bodyA: carBody,
+//   bodyB: camcircle,
+//   length: 825,
+//   render: {
+//     visible: true
+//   },
+//   stiffness: 0.8
+// }))
+
 
 const camline = Bodies.rectangle(0 + trackLength/2, 190, trackLength, 20, { isStatic: true,render: { opacity: 0.5 }})
 Body.setDensity(camcircle, 2.2);
@@ -171,14 +162,14 @@ document.addEventListener('keydown', function(event) {
 }
 });
 
-let update = setInterval(()=>{
-  // camcircle.position.x = car.bodies[0].position.x + 800
-  Render.lookAt(render, camcircle, {
-    x: 400,
-    y: 900,
-  }, false)}, 1);
 // let update = setInterval(()=>{
-// Render.lookAt(render, car.bodies[0], {
-//   x: 400,
-//   y: 700,
-// }, false)}, 1);
+//   // camcircle.position.x = car.bodies[0].position.x + 800
+//   Render.lookAt(render, camcircle, {
+//     x: 400,
+//     y: 900,
+//   }, false)}, 1);
+let update = setInterval(()=>{
+Render.lookAt(render, car.bodies[0], {
+  x: 400,
+  y: 700,
+}, false)}, 1);
