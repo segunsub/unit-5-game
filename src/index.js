@@ -28,7 +28,7 @@ const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Com
 
 // // create engine
 const engine = Engine.create(), world = engine.world;
-const trackLength = window.innerWidth * 2;
+const trackLength = window.innerWidth * 20;
 // create renderer
 const render = Render.create({
   element: document.body,
@@ -85,8 +85,11 @@ const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, functio
 });
 const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
 
+
+const newCar = new Car(400, screen.height - 70,"../img/car-body.png", '../img/car-wheel.png')
+console.log(newCar);
 World.add(world, [
-  
+  newCar.car,
   car,camcircle,
   camline,
   // walls back and ground
@@ -135,14 +138,15 @@ Events.on(engine, 'collisionActive', (event) => {
 // };
 
 //     // make the world bounds a little bigger than the render bounds
-//     world.bounds.min.x = -300;
-//     world.bounds.min.y = -300;
-//     world.bounds.max.x = 1100;
-//     world.bounds.max.y = 900;
+    // world.bounds.min.x = -300;
+    // world.bounds.min.y = -300;
+    // world.bounds.max.x = 1100;
+    // world.bounds.max.y = 900;
 
 
 document.addEventListener('keydown', function(event) {
   const key = event.key;
+  newCar.move(key);
   switch (event.key) {
     case "ArrowLeft":
       Body.applyForce( car.bodies[0], {x: car.bodies[0].position.x, y: car.bodies[0].position.y}, {x: -0.3, y: 0});
@@ -169,7 +173,7 @@ document.addEventListener('keydown', function(event) {
 //     y: 900,
 //   }, false)}, 1);
 let update = setInterval(()=>{
-Render.lookAt(render, car.bodies[0], {
+Render.lookAt(render, newCar.car.bodies[0], {
   x: 400,
   y: 700,
 }, false)}, 1);
