@@ -1,3 +1,4 @@
+
 // const body = document.getElementById('body')
 // const intro = document.getElementById('intro')
 //  const buttonstart = document.createElement('button')
@@ -12,7 +13,7 @@
 //    body.append(instruction)
 //  })
 //  let introdiv = document.createElement('div')
- let ptag = document.createElement('p')
+let ptag = document.createElement('p')
 //  intro.append(introdiv)
 //  introdiv.style.backgroundColor = "blue"
 //  introdiv.append(ptag)
@@ -46,6 +47,11 @@ const render = Render.create({
     showShadows: true,
   }
 });
+//tank
+let tank = document.createElement("meter")
+tank.id = 'tanks'
+tank.min = "0"
+tank.max = "100"
 let instructioncontainer = document.createElement('div')
 
 instructioncontainer.classList.add('container')
@@ -57,19 +63,12 @@ resume.classList.add('resume')
 restart.innerText = "Restart"
 resume.innerHTML = `Resume`
 controlpic.classList.add('controlpic')
-controlpic.innerText = "hey yall"
   let instructionbtn = document.createElement('button')
   instructionbtn.classList.add('controls')
   instructionbtn.innerText = "Instructions"
-  body.append(instructionbtn)
+  body.append(instructionbtn,tank)
   instructioncontainer.append(ptag,resume,restart,controlpic)
-  instructionbtn.addEventListener('click', (e) => {
-    instructioncontainer.style.display = "block"
-    body.append(instructioncontainer)
-  })
-  resume.addEventListener('click', (e) => {
-    instructioncontainer.style.display = "none"
-  })
+
 console.log(render)
 
 Engine.run(engine);
@@ -88,7 +87,6 @@ const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLengt
 wall.render.visible = false
 ground.render.visible = true
 const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
-console.log(newCar);
 const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
 console.log(newGas);
 const newFinish = new FinishLine(trackLength, screen.height - 70, "../img/Finish.png");
@@ -166,24 +164,28 @@ Events.on(engine, 'collisionActive', (event) => {
     // world.bounds.max.x = 1100;
     // world.bounds.max.y = 900;
 
-
+let bool = true
 document.addEventListener('keydown', function(event) {
   const key = event.key;
+  if(bool) {
   newCar.move(key);
-  switch (event.key) {
-    case "ArrowLeft":
-      break;
-    case "ArrowRight":
-
-      break;
+  }
     // case "ArrowUp":
     //     // Up pressed
     //     break;
     // case "ArrowDown":
     //     // Down pressed
     //     break;
-}
 });
+instructionbtn.addEventListener('click', (e) => {
+  bool = false
+  instructioncontainer.style.display = "block"
+  body.append(instructioncontainer)
+})
+resume.addEventListener('click', (e) => {
+  bool = true
+  instructioncontainer.style.display = "none"
+})
 
 // let update = setInterval(()=>{
 //   // camcircle.position.x = car.bodies[0].position.x + 800
@@ -235,3 +237,6 @@ let update = setInterval(()=>{
 
 console.log(render);
 console.log(wall)
+let tankmeasure = setInterval(()=>{
+  tank.value = newCar.gas
+}, 1000)

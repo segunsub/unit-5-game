@@ -19,9 +19,9 @@ class Game {
             wireframes: false,
             background: 'url("img/back2.jpg")',
             hasBounds : true,
-            showCollisions: true,
-            showPositions: true,
-            showShadows: true,
+            showCollisions: false,
+            showPositions: false,
+            showShadows: false,
         }
         });
 
