@@ -67,32 +67,28 @@ console.log(render)
 Engine.run(engine);
 
 Render.run(render);
-const camcircle = Bodies.circle(400, 88, 5)
 // const carBodynew = Bodies.rectangle(230, 640, 200, 90);
 const underground = Bodies.rectangle(trackLength/2, screen.height + 890, trackLength + 40, 200, { isStatic: true })
 
-const camline = Bodies.rectangle(0 + trackLength/2, 190, trackLength, 20, { isStatic: true,render: { opacity: 0.5 }})
-Body.setDensity(camcircle, 2.2);
 // camline.render.setOpacity(0);
 // camline.bodies.forEach(el => el.render.fillStyle = 'transparent');
-const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, function(x, y) {
-  return Bodies.rectangle(x, y, 50, 50);
-});
-const wall = Bodies.rectangle(0 + 15, screen.height/2, 85, screen.height, { isStatic: true });
+// const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, function(x, y) {
+//   return Bodies.rectangle(x, y, 50, 50);
+// });
+const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
 const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
 wall.render.visible = false
+ground.render.visible = true
 const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
 console.log(newCar);
 const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
 console.log(newGas);
-
+const newFinish = new FinishLine(trackLength, screen.height - 70, "../img/Finish.png");
 // const newGame = new Game(newCar, window.innerWidth * 20, newGas);
 
 World.add(world, [
   newGas.matter,
   newCar.car,
-  camcircle,
-  camline,
   underground,
   // walls back and ground
     //ground
@@ -100,6 +96,7 @@ World.add(world, [
     //start
   wall,
     // Flage/Finish line
+  newFinish.matter
   // finishLine
 ]);
 
@@ -122,6 +119,7 @@ underground.render.sprite = {
 // console.log(wall);
 Events.on(engine, 'collisionActive', (event) => {
   newCar.checkCollision(event, newGas)
+  newCar.checkCollision(event, newFinish);
 //   const carIds = {};
 //   car.bodies.forEach(element => carIds[element.id] = true);
 //   const finishLineIds = {};
@@ -166,10 +164,8 @@ document.addEventListener('keydown', function(event) {
   newCar.move(key);
   switch (event.key) {
     case "ArrowLeft":
-      Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: -0.83, y: 0})
       break;
     case "ArrowRight":
-      Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: 0.83, y: 0});
 
       break;
     // case "ArrowUp":
@@ -187,16 +183,45 @@ document.addEventListener('keydown', function(event) {
 //     x: 400,
 //     y: 900,
 //   }, false)}, 1);
+const initialWorldBounds = {
+  max : {
+    x: 1366,
+    y: 780
+  },
+  min : {
+    x: 0,
+    y: 0
+  }
+}
 
 let update = setInterval(()=>{
   // Render.lookAt(render, newCar.car.bodies[0], {
   //   x: 160,
   //   y: 900,
   // }, false)
-  Render.lookAt(render, newCar.car.bodies[0],{
-    x: 220,
-    y: 900,
-  }, false);
+
+  // Render.lookAt(render, newCar.car.bodies[0],{
+  //        x: 160,
+  //   y: 900,
+  // }, false);
+
+  // console.log(render);
+  // render.bounds.min.x = newCar.car.bodies[0].bounds.min.x - 800 + newCar.car.bodies[0].position.x;
+  // render.bounds.max.x = newCar.car.bodies[0].bounds.min.x - 800 + 2000 + newCar.car.bodies[0].position.x;
+
+  
+  render.bounds.min.x = 154 - 800 + newCar.car.bodies[0].position.x;
+  render.bounds.max.x = 154 - 800 + 2500 + newCar.car.bodies[0].position.x;
+  
+  // render.bounds.min.y = newCar.car.bodies[0].bounds.min.y - 300 + newCar.car.bodies[0].position.y;
+  // render.bounds.max.y = newCar.car.bodies[0].bounds.min.y - 300 + 30000 + newCar.car.bodies[0].position.y;
+
+  
+  // render.bounds.min.x = newCar.car.bodies[0].position.x;
+  // render.bounds.max.x = 500 + newCar.car.bodies[0].position.x;
+
+  // render.bounds.min.x = newCar.car.bodies[0].position.y;
+  // render.bounds.max.y = newCar.car.bodies[0].position.y;
 }, 1);
 
 console.log(render);
