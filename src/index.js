@@ -182,16 +182,45 @@ document.addEventListener('keydown', function(event) {
 //     x: 400,
 //     y: 900,
 //   }, false)}, 1);
+const initialWorldBounds = {
+  max : {
+    x: 1366,
+    y: 780
+  },
+  min : {
+    x: 0,
+    y: 0
+  }
+}
 
 let update = setInterval(()=>{
   // Render.lookAt(render, newCar.car.bodies[0], {
   //   x: 160,
   //   y: 900,
   // }, false)
-  Render.lookAt(render, newCar.car.bodies[0],{
-         x: 160,
-    y: 900,
-  }, false);
+
+  // Render.lookAt(render, newCar.car.bodies[0],{
+  //        x: 160,
+  //   y: 900,
+  // }, false);
+
+  // console.log(render);
+  // render.bounds.min.x = newCar.car.bodies[0].bounds.min.x - 800 + newCar.car.bodies[0].position.x;
+  // render.bounds.max.x = newCar.car.bodies[0].bounds.min.x - 800 + 2000 + newCar.car.bodies[0].position.x;
+
+  
+  render.bounds.min.x = 154 - 800 + newCar.car.bodies[0].position.x;
+  render.bounds.max.x = 154 - 800 + 2500 + newCar.car.bodies[0].position.x;
+  
+  // render.bounds.min.y = newCar.car.bodies[0].bounds.min.y - 300 + newCar.car.bodies[0].position.y;
+  // render.bounds.max.y = newCar.car.bodies[0].bounds.min.y - 300 + 30000 + newCar.car.bodies[0].position.y;
+
+  
+  // render.bounds.min.x = newCar.car.bodies[0].position.x;
+  // render.bounds.max.x = 500 + newCar.car.bodies[0].position.x;
+
+  // render.bounds.min.x = newCar.car.bodies[0].position.y;
+  // render.bounds.max.y = newCar.car.bodies[0].position.y;
 }, 1);
 
 console.log(render);
