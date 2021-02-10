@@ -221,8 +221,9 @@ let update = setInterval(()=>{
   render.bounds.min.x = 154 - 800 + newCar.car.bodies[0].position.x;
   render.bounds.max.x = 154 - 800 + 2500 + newCar.car.bodies[0].position.x;
   
-  // render.bounds.min.y = newCar.car.bodies[0].bounds.min.y - 300 + newCar.car.bodies[0].position.y;
-  // render.bounds.max.y = newCar.car.bodies[0].bounds.min.y - 300 + 30000 + newCar.car.bodies[0].position.y;
+  // console.log(newCar.car.bodies[0].bounds.min.y)
+  render.bounds.min.y = 653 - 1760 + newCar.car.bodies[0].position.y;
+  render.bounds.max.y = 653 - 1760 + 1200 + newCar.car.bodies[0].position.y;
 
   
   // render.bounds.min.x = newCar.car.bodies[0].position.x;

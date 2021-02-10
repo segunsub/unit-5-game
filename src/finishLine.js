@@ -9,7 +9,7 @@ class FinishLine {
     }
 
     initFinish(){
-        this.matter = Bodies.rectangle(this.position.x, this.position.y, 150, 150, { isStatic: true });
+        this.matter = Bodies.rectangle(this.position.x, this.position.y, 150, 150, { isStatic: false });
         // this.matter.forEach(element => {
         //     Body.setDensity(element, .0000001);
         // });
