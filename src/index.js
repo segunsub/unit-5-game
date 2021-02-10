@@ -69,6 +69,7 @@ Engine.run(engine);
 Render.run(render);
 const camcircle = Bodies.circle(400, 88, 5)
 // const carBodynew = Bodies.rectangle(230, 640, 200, 90);
+const underground = Bodies.rectangle(trackLength/2, screen.height + 890, trackLength + 40, 200, { isStatic: true })
 
 const camline = Bodies.rectangle(0 + trackLength/2, 190, trackLength, 20, { isStatic: true,render: { opacity: 0.5 }})
 Body.setDensity(camcircle, 2.2);
@@ -77,9 +78,9 @@ Body.setDensity(camcircle, 2.2);
 const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, function(x, y) {
   return Bodies.rectangle(x, y, 50, 50);
 });
-const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
+const wall = Bodies.rectangle(0 + 15, screen.height/2, 85, screen.height, { isStatic: true });
 const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
-
+wall.render.visible = false
 const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
 console.log(newCar);
 const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
@@ -92,6 +93,7 @@ World.add(world, [
   newCar.car,
   camcircle,
   camline,
+  underground,
   // walls back and ground
     //ground
   ground,
@@ -100,6 +102,11 @@ World.add(world, [
     // Flage/Finish line
   // finishLine
 ]);
+
+underground.render.sprite = {
+  texture: "../img/undergroundtexture.png",
+  xScale: 40, yScale: 6.3, xOffset: 0.5, yOffset: 0.5
+}
 // newCar.car.bodies.push(camcircle);
 // Composite.add(newCar.car, Constraint.create({
 //   bodyA: newCar.car.bodies[0],
@@ -187,10 +194,10 @@ let update = setInterval(()=>{
   //   y: 900,
   // }, false)
   Render.lookAt(render, newCar.car.bodies[0],{
-         x: 160,
+    x: 220,
     y: 900,
   }, false);
 }, 1);
 
 console.log(render);
-console.log(ground)
+console.log(wall)
