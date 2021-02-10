@@ -59,7 +59,10 @@ class Car {
         // console.log(target);
         if(target.matter.type === "composite"){
             const targetIds = {};
-            target.bodies.forEach(element => targetIds[element.id] = true);
+            if(target.bodies){
+                target.bodies.forEach(element => targetIds[element.id] = true);
+            } else if(target.matter){
+                target.matter.bodies.forEach(element => targetIds[element.id] = true);}
     
             let pairs = event.pairs.filter(pair => {
                 if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
