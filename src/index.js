@@ -16,7 +16,8 @@
 //  intro.append(introdiv)
 //  introdiv.style.backgroundColor = "blue"
 //  introdiv.append(ptag)
- ptag.innerHTML = `The controls are the arrow keys.`
+ ptag.innerHTML = `<h1 class="h1">Controls</h1>
+ The controls are the arrow keys`
  ptag.classList.add('instruc')
 //  instruction.addEventListener('click', () => {
 //
@@ -45,15 +46,21 @@ const render = Render.create({
   }
 });
 let instructioncontainer = document.createElement('div')
-body.append(instructioncontainer)
+
 instructioncontainer.classList.add('container')
-  let button = document.createElement('button')
-  button.classList.add('controls')
-  button.innerText = "Instructions"
-  body.append(button)
-  instructioncontainer.append(ptag)
-  button.addEventListener('click', (e) => {
-    console.log('hello')
+let resume = document.createElement('button')
+let restart = document.createElement('button')
+restart.classList.add('resume')
+resume.classList.add('resume')
+restart.innerText = "Restart"
+resume.innerHTML = `Resume`
+  let instructionbtn = document.createElement('button')
+  instructionbtn.classList.add('controls')
+  instructionbtn.innerText = "Instructions"
+  body.append(instructionbtn)
+  instructioncontainer.append(ptag,resume,restart)
+  instructionbtn.addEventListener('click', (e) => {
+    body.append(instructioncontainer)
   })
 console.log(render)
 
@@ -154,9 +161,9 @@ document.addEventListener('keydown', function(event) {
     case "ArrowLeft":
       Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: -0.83, y: 0})
       break;
-    case "ArrowRight":  
+    case "ArrowRight":
       Body.applyForce( camcircle, {x: camcircle.position.x, y: camcircle.position.y}, {x: 0.83, y: 0});
-        
+
       break;
     // case "ArrowUp":
     //     // Up pressed
