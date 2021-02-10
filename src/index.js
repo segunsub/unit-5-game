@@ -17,7 +17,8 @@
 //  introdiv.style.backgroundColor = "blue"
 //  introdiv.append(ptag)
  ptag.innerHTML = `<h1 class="h1">Controls</h1>
- The controls are the arrow keys`
+ The controls are the arrow keys
+ `
  ptag.classList.add('instruc')
 //  instruction.addEventListener('click', () => {
 //
@@ -50,17 +51,24 @@ let instructioncontainer = document.createElement('div')
 instructioncontainer.classList.add('container')
 let resume = document.createElement('button')
 let restart = document.createElement('button')
+let controlpic = document.createElement('div')
 restart.classList.add('resume')
 resume.classList.add('resume')
 restart.innerText = "Restart"
 resume.innerHTML = `Resume`
+controlpic.classList.add('controlpic')
+controlpic.innerText = "hey yall"
   let instructionbtn = document.createElement('button')
   instructionbtn.classList.add('controls')
   instructionbtn.innerText = "Instructions"
   body.append(instructionbtn)
-  instructioncontainer.append(ptag,resume,restart)
+  instructioncontainer.append(ptag,resume,restart,controlpic)
   instructionbtn.addEventListener('click', (e) => {
+    instructioncontainer.style.display = "block"
     body.append(instructioncontainer)
+  })
+  resume.addEventListener('click', (e) => {
+    instructioncontainer.style.display = "none"
   })
 console.log(render)
 

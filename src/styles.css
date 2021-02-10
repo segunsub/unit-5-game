@@ -16,6 +16,7 @@ canvas{
   text-align: center;
   position: absolute;
   width: 130px;
+
   top: 20%;
   border-radius: 10px;
   left: 50%;
@@ -24,8 +25,10 @@ canvas{
 .controls {
   position: absolute;
   top: 2%;
-  left: 93%;
+  left: 90%;
   border-radius: 10px;
+  background-color: rgb(115,163,211);
+  color: whitesmoke;
 }
 .resume {
  background-color: silver; 
@@ -40,6 +43,12 @@ canvas{
 .instruc {
   border-radius: 10px;
   
+}
+.controlpic {
+  /* background-color: black; */
+  height: 50%;
+  width: 50%;
+  background-image: url("temp2intro.jpeg")
 }
 /* #body {
 background-image: url("tempintro.jpg")
