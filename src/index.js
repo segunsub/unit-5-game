@@ -52,17 +52,23 @@ let tank = document.createElement("meter")
 tank.id = 'tanks'
 tank.min = "0"
 tank.max = "100"
+tank.low = "40"
 let instructioncontainer = document.createElement('div')
+let tankicon = document.createElement('img')
+tankicon.id = 'icon'
+tankicon.src = '../img/lowfuel.png'
+
 
 instructioncontainer.classList.add('container')
 let resume = document.createElement('button')
 let restart = document.createElement('button')
-let controlpic = document.createElement('div')
+let controlpic = document.createElement('img')
 restart.classList.add('resume')
 resume.classList.add('resume')
 restart.innerText = "Restart"
 resume.innerHTML = `Resume`
 controlpic.classList.add('controlpic')
+controlpic.src = '../img/control.png'
   let instructionbtn = document.createElement('button')
   instructionbtn.classList.add('controls')
   instructionbtn.innerText = "Instructions"
@@ -238,5 +244,14 @@ let update = setInterval(()=>{
 console.log(render);
 console.log(wall)
 let tankmeasure = setInterval(()=>{
+  if(newCar.gas <= tank.low) {
+    tankicon.style.display = "block"
+    body.append(tankicon)
+  }else {
+    tankicon.style.display = "none"
+    }
   tank.value = newCar.gas
 }, 1000)
+let lowfuel = setInterval(()=>{
+  tankicon.style.display = "none"
+}, 2000)
