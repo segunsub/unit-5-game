@@ -16,7 +16,7 @@
 //  intro.append(introdiv)
 //  introdiv.style.backgroundColor = "blue"
 //  introdiv.append(ptag)
- ptag.innerText = "The controls are the arrow keys"
+ ptag.innerHTML = `The controls are the arrow keys.`
  ptag.classList.add('instruc')
 //  instruction.addEventListener('click', () => {
 //
@@ -47,7 +47,6 @@ const render = Render.create({
 let instructioncontainer = document.createElement('div')
 body.append(instructioncontainer)
 instructioncontainer.classList.add('container')
-instructioncontainer.innerText = " this is the end of the game "
   let button = document.createElement('button')
   button.classList.add('controls')
   button.innerText = "Instructions"

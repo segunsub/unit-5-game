@@ -15,7 +15,8 @@ canvas{
 .container {
   position: absolute;
   background-color: white;
-  width: 130px;
+  width: 230px;
+  height: 200px;
   top: 90px;
   left: 380px
 }
