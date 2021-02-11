@@ -3,10 +3,10 @@ const body = document.getElementById('body')
 const intro = document.getElementById('intro')
 let tank = document.createElement("meter")
 tank.id = 'tanks'
- const buttonstart = document.getElementById('start')
- let instructionbtn = document.createElement('button')
- instructionbtn.classList.add('controls')
- buttonstart.addEventListener("click",buttonstart.requestFullscreen);
+const buttonstart = document.getElementById('start')
+let instructionbtn = document.createElement('button')
+instructionbtn.classList.add('controls')
+buttonstart.addEventListener("click",buttonstart.requestFullscreen);
 
 
 
@@ -87,9 +87,9 @@ controlpic.classList.add('controlpic')
 controlpic.src = '../img/control.png'
   // let instructionbtn = document.createElement('button')
   // instructionbtn.classList.add('controls')
-  instructionbtn.innerText = "Instructions"
-  body.append(instructionbtn,tank)
-  instructioncontainer.append(ptag,resume,restart,controlpic)
+instructionbtn.innerText = "Instructions"
+body.append(instructionbtn,tank)
+instructioncontainer.append(ptag,resume,restart,controlpic)
   // instruction.addEventListener('click', () => {
   //    intro.append(instructioncontainer)
   // })
@@ -130,7 +130,7 @@ resume.addEventListener('click', () => {
   newGame.car.canMove = true
   instructioncontainer.style.display = "none"
 })
-
+restart.addEventListener('click', newGame.reset());
 let update = setInterval(()=>{
   render.bounds.min.x = 154 - 800 + newGame.car.car.bodies[0].position.x;
   render.bounds.max.x = 154 - 800 + 2500 + newGame.car.car.bodies[0].position.x;

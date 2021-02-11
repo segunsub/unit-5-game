@@ -43,6 +43,7 @@ class Game {
                 newGame.car.move(event.key);
             }
         });
+
         return world;
     }
 
