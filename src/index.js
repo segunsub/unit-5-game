@@ -12,8 +12,8 @@ tank.id = 'tanks'
  }
 body.addEventListener('click', () => {
   audio.innerHTML = ''
-  audio.innerHTML = '<source src="sound/StartCar.mp3" type="audio/mp3">'
-  audio.volume = 0.1
+  audio.innerHTML = '<source src="sound/melodyloops-preview-badass-life-2m30s.mp3" type="audio/mp3">'
+  audio.volume = 0.7
  })
  buttonstart.addEventListener("click",buttonstart.requestFullscreen);
 
