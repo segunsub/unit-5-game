@@ -6,11 +6,21 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="src/styles.css"/>
 </head>
-<body id = "body">     
+<body id = "body">  
+<!-- 
+    <iframe src="sound/StartCar.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
+
+
+    <embed id="audio" height="60" type="audio/mp3" width="144" src="sound/StartCar.mp3" volume="60" hidden="false" loop="true" autostart="false" />    -->
+
+    <audio id="player" autoplay>
+       
+    </audio>
+
     <div id="intro">
         <p id="title">Car Racing</p>
         <p class="author">A GAME BY JASON AND SEGUN</p>
-        <div id="play"><p id="start">Start</p></div>
+        <div id="play"><div id="start">Start</div></div>
     <!-- <h1>Creating the car</h1> -->
      <!-- <img src="terrain.svg" alt='svg' > -->
      <canvas id="canvas"></canvas>

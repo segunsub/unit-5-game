@@ -1,4 +1,4 @@
-
+let audio = document.getElementById('player')
 const body = document.getElementById('body')
 const intro = document.getElementById('intro')
 let tank = document.createElement("meter")
@@ -6,7 +6,7 @@ tank.id = 'tanks'
  const buttonstart = document.getElementById('start')
  let instructionbtn = document.createElement('button')
  instructionbtn.classList.add('controls')
- buttonstart.addEventListener("click",buttonstart.requestFullscreen);
+//  buttonstart.addEventListener("click",buttonstart.requestFullscreen);
 
 
 
@@ -14,12 +14,14 @@ tank.id = 'tanks'
 //  instruction.innerText = "INSTRUCTIONS"
 //  intro.append(instruction)
 //  intro.append(buttonstart)
-
+console.log('audio')
  buttonstart.addEventListener('click', () => {
    body.removeChild(intro)
    canvas.style.position = "absolute"
    tank.style.position = "absolute"
    instructionbtn.style.position = "absolute"
+   audio.innerHTML = ''
+   audio.innerHTML = '<source src="sound/StartCar.mp3" type="audio/mp3">'
  })
 //  let introdiv = document.createElement('div')
 
@@ -32,13 +34,15 @@ instructionclck.classList.add('controlsz')
 instructionclck.innerText = "Instructions"
 body.append(instructionclck)
 let pintro = document.createElement('p')
-pintro.innerHTML = `<h1 class="h1">Controls</h1>
+pintro.innerHTML = `<h1 background-color="gold">Controls</h1>
  The controls are the arrow keys
  `
  pintro.classList.add('instruc')
 let instructioncontain = document.createElement('div')
-instructioncontain.classList.add('container')
+instructioncontain.classList.add('containers')
 let exit = document.createElement('button')
+exit.style.color = "gold"
+exit.style.backgroundColor = "black"
 exit.innerText = "Exit"
 exit.classList.add('resume')
 instructionclck.addEventListener('click', (e) => {
@@ -204,8 +208,8 @@ let update = setInterval(()=>{
   render.bounds.max.x = 154 - 800 + 2500 + newCar.car.bodies[0].position.x;
   
   // console.log(newCar.car.bodies[0].bounds.min.y)
-  render.bounds.min.y = 653 - 1760 + newCar.car.bodies[0].position.y;
-  render.bounds.max.y = 653 - 1760 + 1200 + newCar.car.bodies[0].position.y;
+  // render.bounds.min.y = 653 - 1760 + newCar.car.bodies[0].position.y;
+  // render.bounds.max.y = 653 - 1760 + 1200 + newCar.car.bodies[0].position.y;
 }, 1);
 
 console.log(render);
