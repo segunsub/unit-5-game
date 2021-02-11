@@ -13,21 +13,23 @@
 //    body.append(instruction)
 //  })
 //  let introdiv = document.createElement('div')
-let ptag = document.createElement('p')
+
 //  intro.append(introdiv)
 //  introdiv.style.backgroundColor = "blue"
-//  introdiv.append(ptag)
- ptag.innerHTML = `<h1 class="h1">Controls</h1>
+ 
+ 
+//  instruction.addEventListener('click', () => {
+
+// })
+let ptag = document.createElement('p')
+ptag.innerHTML = `<h1 class="h1">Controls</h1>
  The controls are the arrow keys
  `
  ptag.classList.add('instruc')
-//  instruction.addEventListener('click', () => {
-//
-// })
-
+//  introdiv.append(ptag)
 document.querySelector("body").addEventListener("click", document.querySelector("body").requestFullscreen);
 
-const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite, Events  } = Matter;
+const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite, Events, Vector  } = Matter;
 
 // // create engine
 const engine = Engine.create(), world = engine.world;
@@ -47,22 +49,29 @@ const render = Render.create({
     showShadows: true,
   }
 });
+
 //tank
 let tank = document.createElement("meter")
 tank.id = 'tanks'
 tank.min = "0"
 tank.max = "100"
+tank.low = "40"
 let instructioncontainer = document.createElement('div')
+let tankicon = document.createElement('img')
+tankicon.id = 'icon'
+tankicon.src = '../img/lowfuel.png'
+
 
 instructioncontainer.classList.add('container')
 let resume = document.createElement('button')
 let restart = document.createElement('button')
-let controlpic = document.createElement('div')
+let controlpic = document.createElement('img')
 restart.classList.add('resume')
 resume.classList.add('resume')
 restart.innerText = "Restart"
 resume.innerHTML = `Resume`
 controlpic.classList.add('controlpic')
+controlpic.src = '../img/control.png'
   let instructionbtn = document.createElement('button')
   instructionbtn.classList.add('controls')
   instructionbtn.innerText = "Instructions"
@@ -74,25 +83,41 @@ console.log(render)
 Engine.run(engine);
 
 Render.run(render);
-// const carBodynew = Bodies.rectangle(230, 640, 200, 90);
 const underground = Bodies.rectangle(trackLength/2, screen.height + 890, trackLength + 40, 200, { isStatic: true })
 
-// camline.render.setOpacity(0);
-// camline.bodies.forEach(el => el.render.fillStyle = 'transparent');
-// const finishLine = Composites.pyramid(trackLength - 400, 50, 8, 7, 0, 0, function(x, y) {
-//   return Bodies.rectangle(x, y, 50, 50);
-// });
 const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
 const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
 wall.render.visible = false
 ground.render.visible = true
 const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
 const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
-console.log(newGas);
+// console.log(newGas);
 const newFinish = new FinishLine(trackLength, screen.height - 70, "../img/Finish.png");
 // const newGame = new Game(newCar, window.innerWidth * 20, newGas);
+const vectors = [
+  Vector.create(1500, screen.height - 50),
+  Vector.create(2000, screen.height - 300),
+  Vector.create(2200, screen.height - 450),
+  Vector.create(2300, screen.height - 500),
+  Vector.create(2700, screen.height - 50),
+]
+function createHill(x,y, length, height){
+  const vectors = [];
+  for(let i = x; i < x + length; i+=20){
+    let vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height)
+    vectors.push(vector);
+    console.log(vector, Math.sin(((i-x)/length )* Math.PI));
+  }
+  const hill = Bodies.fromVertices(2000, screen.height - 30, vectors, {isStatic: true});
+  return hill;
+}
+const newHill = createHill(2000, screen.height - 5000, 1000, 400);
+// Body.rotate(newHill, Math.PI, newHill.position);
+// const hill = Bodies.fromVertices(1500,screen.height - 50, vectors);
 
 World.add(world, [
+  newHill,
+  // hill,
   newGas.matter,
   newCar.car,
   underground,
@@ -110,72 +135,16 @@ underground.render.sprite = {
   texture: "../img/undergroundtexture.png",
   xScale: 40, yScale: 6.3, xOffset: 0.5, yOffset: 0.5
 }
-// newCar.car.bodies.push(camcircle);
-// Composite.add(newCar.car, Constraint.create({
-//   bodyA: newCar.car.bodies[0],
-//   bodyB: camcircle,
-//   length: 820,
-//   render: {
-//     visible: true
-//   },
-//   stiffness: 0.2
-// }))
-
-// console.log(finishLine);
-// console.log(wall);
 Events.on(engine, 'collisionActive', (event) => {
   newCar.checkCollision(event, newGas)
   newCar.checkCollision(event, newFinish);
-//   const carIds = {};
-//   car.bodies.forEach(element => carIds[element.id] = true);
-//   const finishLineIds = {};
-//   finishLine.bodies.forEach(element => finishLineIds[element.id] = true);
-//   // console.log(event.pairs);
-//   let pairs = event.pairs.filter(pair => {
-//     if (carIds[pair.bodyA.id]  || carIds[pair.bodyB.id]) {
-//       if (finishLineIds[pair.bodyA.id] || finishLineIds[pair.bodyB.id]) {
-//         pair.bodyA.render.fillStyle = '#03fc2c';
-//         pair.bodyB.render.fillStyle = '#03fc2c';
-//         // console.log("You reached the end");
-//       }
-//     }
-//   });
-
-  // for (var i = 0; i < pairs.length; i++) {
-  //   var pair = pairs[i];
-  //   pair.bodyA.render.fillStyle = '#333';
-  //   pair.bodyB.render.fillStyle = '#333';
-  // }
-  // event.pairs.forEach(function(obj){
-
-  // });
 });
-
-
-// // get the centre of the viewport
-// var viewportCentre = {
-//   x: render.options.width * 0.5,
-//   y: render.options.height * 0.5
-// };
-
-//     // make the world bounds a little bigger than the render bounds
-    // world.bounds.min.x = -300;
-    // world.bounds.min.y = -300;
-    // world.bounds.max.x = 1100;
-    // world.bounds.max.y = 900;
-
 let bool = true
 document.addEventListener('keydown', function(event) {
   const key = event.key;
   if(bool) {
   newCar.move(key);
   }
-    // case "ArrowUp":
-    //     // Up pressed
-    //     break;
-    // case "ArrowDown":
-    //     // Down pressed
-    //     break;
 });
 instructionbtn.addEventListener('click', (e) => {
   bool = false
@@ -186,13 +155,6 @@ resume.addEventListener('click', (e) => {
   bool = true
   instructioncontainer.style.display = "none"
 })
-
-// let update = setInterval(()=>{
-//   // camcircle.position.x = car.bodies[0].position.x + 800
-//   Render.lookAt(render, camcircle, {
-//     x: 400,
-//     y: 900,
-//   }, false)}, 1);
 const initialWorldBounds = {
   max : {
     x: 1366,
@@ -205,49 +167,40 @@ const initialWorldBounds = {
 }
 
 let update = setInterval(()=>{
-  // Render.lookAt(render, newCar.car.bodies[0], {
-  //   x: 160,
-  //   y: 900,
-  // }, false)
-
-  // Render.lookAt(render, newCar.car.bodies[0],{
-  //        x: 160,
-  //   y: 900,
-  // }, false);
-
-  // console.log(render);
-  // render.bounds.min.x = newCar.car.bodies[0].bounds.min.x - 800 + newCar.car.bodies[0].position.x;
-  // render.bounds.max.x = newCar.car.bodies[0].bounds.min.x - 800 + 2000 + newCar.car.bodies[0].position.x;
-
-  
   render.bounds.min.x = 154 - 800 + newCar.car.bodies[0].position.x;
   render.bounds.max.x = 154 - 800 + 2500 + newCar.car.bodies[0].position.x;
   
   // console.log(newCar.car.bodies[0].bounds.min.y)
   render.bounds.min.y = 653 - 1760 + newCar.car.bodies[0].position.y;
   render.bounds.max.y = 653 - 1760 + 1200 + newCar.car.bodies[0].position.y;
-
-  
-  // render.bounds.min.x = newCar.car.bodies[0].position.x;
-  // render.bounds.max.x = 500 + newCar.car.bodies[0].position.x;
-
-  // render.bounds.min.x = newCar.car.bodies[0].position.y;
-  // render.bounds.max.y = newCar.car.bodies[0].position.y;
 }, 1);
 
 console.log(render);
 console.log(wall)
 let tankmeasure = setInterval(()=>{
+  if(newCar.gas <= tank.low) {
+    tankicon.style.display = "block"
+    body.append(tankicon)
+  }else {
+    tankicon.style.display = "none"
+    }
   tank.value = newCar.gas
 }, 1000)
 
 function reset(){
   
-  World.remove(world, this.matter);
+  world.bodies.forEach(body => World.remove(world, body));
+  World.remove(world, newCar.car);
+  World.remove(world, newGas.matter);
+  World.remove(world, newFinish.matter);
   const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
   const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
   wall.render.visible = false
   ground.render.visible = true
-  const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
-  const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
+  // const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
+  // const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
+  // const newFinish = new FinishLine(trackLength, screen.height - 70, "../img/Finish.png");
 }
+let lowfuel = setInterval(()=>{
+  tankicon.style.display = "none"
+}, 2000)
