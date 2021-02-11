@@ -111,7 +111,7 @@ controlpic.src = '../img/control.png'
   // instruction.addEventListener('click', () => {
   //    intro.append(instructioncontainer)
   // })
-console.log(render)
+// console.log(render)
 
 Engine.run(engine);
 
@@ -127,23 +127,20 @@ const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
 // console.log(newGas);
 const newFinish = new FinishLine(trackLength, screen.height - 70, "../img/Finish.png");
 // const newGame = new Game(newCar, window.innerWidth * 20, newGas);
-const vectors = [
-  Vector.create(1500, screen.height - 50),
-  Vector.create(2000, screen.height - 300),
-  Vector.create(2200, screen.height - 450),
-  Vector.create(2300, screen.height - 500),
-  Vector.create(2700, screen.height - 50),
-]
+
 function createHill(x,y, length, height){
   const vectors = [];
   for(let i = x; i < x + length; i+=20){
     let vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height)
     vectors.push(vector);
-    console.log(vector, Math.sin(((i-x)/length )* Math.PI));
+    // console.log(vector, Math.sin(((i-x)/length )* Math.PI));
   }
   const hill = Bodies.fromVertices(2000, screen.height - 30, vectors, {isStatic: true});
   return hill;
 }
+// const hills  = (length) => {
+
+// }
 const newHill = createHill(2000, screen.height - 5000, 1000, 400);
 // Body.rotate(newHill, Math.PI, newHill.position);
 // const hill = Bodies.fromVertices(1500,screen.height - 50, vectors);
@@ -208,8 +205,8 @@ let update = setInterval(()=>{
   render.bounds.max.y = 653 - 1760 + 1200 + newCar.car.bodies[0].position.y;
 }, 1);
 
-console.log(render);
-console.log(wall)
+// console.log(render);
+// console.log(wall)
 let tankmeasure = setInterval(()=>{
   if(newCar.gas <= tank.low) {
     tankicon.style.display = "block"
@@ -220,20 +217,6 @@ let tankmeasure = setInterval(()=>{
   tank.value = newCar.gas
 }, 1000)
 
-function reset(){
-  
-  world.bodies.forEach(body => World.remove(world, body));
-  World.remove(world, newCar.car);
-  World.remove(world, newGas.matter);
-  World.remove(world, newFinish.matter);
-  const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
-  const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
-  wall.render.visible = false
-  ground.render.visible = true
-  // const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
-  // const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
-  // const newFinish = new FinishLine(trackLength, screen.height - 70, "../img/Finish.png");
-}
 let lowfuel = setInterval(()=>{
   tankicon.style.display = "none"
 }, 2000)
