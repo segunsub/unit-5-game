@@ -9,6 +9,7 @@ class Car {
             body: body,
             wheels: wheel
         };
+        this.canMove = true;
         this.car = this.initCar();
     }
 
@@ -34,21 +35,24 @@ class Car {
     };
 
     move(eventKey){
-        if(this.gas > 0){
-            this.position = this.car.bodies[0].position;
-            this.gas -= .5;
-            // console.log(this.gas);
-            switch (eventKey) {
-            case "ArrowLeft":
-                Body.applyForce( this.car.bodies[0], {x: this.car.bodies[0].position.x, y: this.car.bodies[0].position.y}, {x: -0.3, y: 0});
-                break;
-            case "ArrowRight":
-                Body.applyForce( this.car.bodies[0], {x: this.car.bodies[0].position.x, y: this.car.bodies[0].position.y}, {x: 0.3, y: 0});
-                break;
+        if(this.canMove){
+            // console.log(Body);
+            if(this.gas > 0){
+                this.position = this.car.bodies[0].position;
+                this.gas -= .5;
+                
+                switch (eventKey) {
+                case "ArrowLeft":
+                    Body.applyForce( this.car.bodies[0], {x: this.car.bodies[0].position.x, y: this.car.bodies[0].position.y}, {x: -0.3, y: 0});
+                    break;
+                case "ArrowRight":
+                    Body.applyForce( this.car.bodies[0], {x: this.car.bodies[0].position.x, y: this.car.bodies[0].position.y}, {x: 0.3, y: 0});
+                    break;
+                }
+            } else {
+                console.log("Out of gas");
+                //show icon out of gas
             }
-        } else {
-            console.log("Out of gas");
-            //show icon out of gas
         }
     }
 

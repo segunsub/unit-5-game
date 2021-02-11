@@ -26,13 +26,6 @@ class Gas {
     collision(obj){
         obj.gas = 100;
         this.amount = 0;
-        // this.matter.render.sprite = {
-        //     texture: this.texture,
-        //     xOffset: 0,
-        //     xScale: 0,
-        //     yOffset: 0,
-        //     yScale: 0
-        // }
         World.remove(world, this.matter);
         console.log(this.matter);
         return this;
