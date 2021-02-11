@@ -240,3 +240,14 @@ console.log(wall)
 let tankmeasure = setInterval(()=>{
   tank.value = newCar.gas
 }, 1000)
+
+function reset(){
+  
+  World.remove(world, this.matter);
+  const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
+  const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
+  wall.render.visible = false
+  ground.render.visible = true
+  const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
+  const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
+}
