@@ -8,53 +8,42 @@ class Game {
     }
 
     initGame(){
-        const engine = Engine.create(), world = engine.world;
-        const trackLength = this.length;
-        
-        const render = Render.create({
-            element: document.body,
-            engine: engine,
-            canvas: canvas,
-            options: {
-              width: screen.width,
-              height: screen.height,
-              wireframes: false,
-              background: 'url("img/back2.jpg")',
-              hasBounds : true,
-            }
-          });
-
-        Engine.run(engine);
-        Render.run(render);
 
         const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
-        const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true });        
+        const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true });
+        const underground = Bodies.rectangle(trackLength/2, screen.height + 890, trackLength + 40, 200, { isStatic: true });
+        ground.render.visible = true;
+        wall.render.visible = false;
+        underground.render.sprite = {
+            texture: "../img/undergroundtexture.png",
+            xScale: 40, yScale: 6.3, xOffset: 0.5, yOffset: 0.5
+        }
         const objectMatter = this.objects.map(obj => obj.matter);
+        this.genHills().forEach(hill => {
+            objectMatter.push(hill);
+            // console.log(hill.position);
+        });
         
         World.add(world, [
-            this.car,
+            this.car.car,
             ground,
             wall,
+            underground,
             ...objectMatter
         ]);
 
-        let update = setInterval(()=>{
-            render.bounds.min.x = 154 - 800 + newCar.car.bodies[0].position.x;
-            render.bounds.max.x = 154 - 800 + 2500 + newCar.car.bodies[0].position.x;
-            
-            // console.log(newCar.car.bodies[0].bounds.min.y)
-            render.bounds.min.y = 653 - 1760 + newCar.car.bodies[0].position.y;
-            render.bounds.max.y = 653 - 1760 + 1200 + newCar.car.bodies[0].position.y;
-        }, 1);
-
         Events.on(engine, 'collisionActive', (event) => {
-            let hit = this.car.checkCollision(event, newGas)
-            this.removeItem(hit);
+            newGame.objects.forEach(obj => newGame.car.checkCollision(event, obj));
         });
 
         document.addEventListener('keydown', function(event) {
-            this.car.move(event.key);
+            // debugger;
+            // console.log(newGame.car.canMove);
+            if (newGame.car.canMove) {
+                newGame.car.move(event.key);
+            }
         });
+        return world;
     }
 
     genHills(){
@@ -64,11 +53,18 @@ class Game {
             for(let i = x; i < x + length; i+=20){
                 let vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height)
                 vectors.push(vector);
-                console.log(vector, Math.sin(((i-x)/length )* Math.PI));
             }
-            const hill = Bodies.fromVertices(2000, screen.height - 30, vectors, {isStatic: true});
+            const hill = Bodies.fromVertices(x, screen.height - 30, vectors, {isStatic: true});
             return hill;
         }
+        const hills = [];
+        for(let i = 0; i < this.numHills; i++){
+            const hillWidth = Math.floor((this.length/this.numHills) - 1000);
+            const hill = createHill(2000 + (hillWidth * i * 2), screen.height - 70, hillWidth, Math.floor(Math.random() * 400 + 100))
+            console.log(hill.position);
+            hills.push(hill);
+        }
+        return hills;
     }
 
     removeItem(item){
@@ -88,19 +84,44 @@ class Game {
         
         //Making everything again
         const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
-        const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
-        wall.render.visible = false
-        ground.render.visible = true
+        const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true });
+        const underground = Bodies.rectangle(trackLength/2, screen.height + 890, trackLength + 40, 200, { isStatic: true });
+        ground.render.visible = true;
+        wall.render.visible = false;
+        underground.render.sprite = {
+            texture: "../img/undergroundtexture.png",
+            xScale: 40, yScale: 6.3, xOffset: 0.5, yOffset: 0.5
+        }
         this.car = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png');
         this.objects.push(new Gas(8090, screen.height - 70, "../img/gasicon.png"));
         this.objects.push(new FinishLine(trackLength, screen.height - 70, "../img/Finish.png"));
         const objectMatter = this.objects.map(obj => obj.matter);
+        console.log(objectMatter);
+
         //Adding everything back in
         World.add(world, [
-            this.car,
+            this.car.car,
             ground,
             wall,
+            underground,
             ...objectMatter
         ]);
     }
 }
+
+/*
+sprite:
+texture: "../img/Finish.png"
+xOffset: 0.5
+xScale: 1
+yOffset: 0.9
+yScale: 1.3
+
+
+
+sprite:
+texture: "../img/Finish.png"
+xOffset: 0.5
+xScale: 1
+yOffset: 0.9
+yScale: 1.3*/
