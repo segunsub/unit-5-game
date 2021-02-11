@@ -1,33 +1,66 @@
 
-// const body = document.getElementById('body')
-// const intro = document.getElementById('intro')
-//  const buttonstart = document.createElement('button')
+const body = document.getElementById('body')
+const intro = document.getElementById('intro')
+let tank = document.createElement("meter")
+tank.id = 'tanks'
+ const buttonstart = document.getElementById('start')
+ let instructionbtn = document.createElement('button')
+ instructionbtn.classList.add('controls')
+ buttonstart.addEventListener("click",buttonstart.requestFullscreen);
+
+
+
 //  const instruction = document.createElement('button')
 //  instruction.innerText = "INSTRUCTIONS"
 //  intro.append(instruction)
-//  buttonstart.innerText = "START GAME"
-//  buttonstart.style.position = "center"
 //  intro.append(buttonstart)
-//  buttonstart.addEventListener('click', () => {
-//    body.removeChild(intro)
-//    body.append(instruction)
-//  })
+
+ buttonstart.addEventListener('click', () => {
+   body.removeChild(intro)
+   canvas.style.position = "absolute"
+   tank.style.position = "absolute"
+   instructionbtn.style.position = "absolute"
+ })
 //  let introdiv = document.createElement('div')
 
 //  intro.append(introdiv)
 //  introdiv.style.backgroundColor = "blue"
- 
- 
-//  instruction.addEventListener('click', () => {
 
-// })
+
+let instructionclck = document.createElement('button')
+instructionclck.classList.add('controlsz')
+instructionclck.innerText = "Instructions"
+body.append(instructionclck)
+let pintro = document.createElement('p')
+pintro.innerHTML = `<h1 class="h1">Controls</h1>
+ The controls are the arrow keys
+ `
+ pintro.classList.add('instruc')
+let instructioncontain = document.createElement('div')
+instructioncontain.classList.add('container')
+let exit = document.createElement('button')
+exit.innerText = "Exit"
+exit.classList.add('resume')
+instructionclck.addEventListener('click', (e) => {
+  instructioncontain.style.display = "block"
+  body.append(instructioncontain)
+  instructioncontain.append(pintro,exit)
+})
+
+exit.addEventListener('click', () => {
+  instructioncontain.style.display = "none"
+})
+
+
+
+
 let ptag = document.createElement('p')
 ptag.innerHTML = `<h1 class="h1">Controls</h1>
  The controls are the arrow keys
  `
  ptag.classList.add('instruc')
 //  introdiv.append(ptag)
-document.querySelector("body").addEventListener("click", document.querySelector("body").requestFullscreen);
+
 
 const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite, Events  } = Matter;
 
@@ -38,21 +71,18 @@ const trackLength = window.innerWidth * 20;
 const render = Render.create({
   element: document.body,
   engine: engine,
+  canvas: canvas,
   options: {
     width: screen.width,
     height: screen.height,
     wireframes: false,
     background: 'url("img/back2.jpg")',
     hasBounds : true,
-    showCollisions: true,
-    showPositions: true,
-    showShadows: true,
   }
 });
 
 //tank
-let tank = document.createElement("meter")
-tank.id = 'tanks'
+
 tank.min = "0"
 tank.max = "100"
 tank.low = "40"
@@ -60,6 +90,7 @@ let instructioncontainer = document.createElement('div')
 let tankicon = document.createElement('img')
 tankicon.id = 'icon'
 tankicon.src = '../img/lowfuel.png'
+tank.innerText = "50%"
 
 
 instructioncontainer.classList.add('container')
@@ -72,12 +103,14 @@ restart.innerText = "Restart"
 resume.innerHTML = `Resume`
 controlpic.classList.add('controlpic')
 controlpic.src = '../img/control.png'
-  let instructionbtn = document.createElement('button')
-  instructionbtn.classList.add('controls')
+  // let instructionbtn = document.createElement('button')
+  // instructionbtn.classList.add('controls')
   instructionbtn.innerText = "Instructions"
   body.append(instructionbtn,tank)
   instructioncontainer.append(ptag,resume,restart,controlpic)
-
+  // instruction.addEventListener('click', () => {
+  //    intro.append(instructioncontainer)
+  // })
 console.log(render)
 
 Engine.run(engine);
@@ -86,7 +119,7 @@ Render.run(render);
 const underground = Bodies.rectangle(trackLength/2, screen.height + 890, trackLength + 40, 200, { isStatic: true })
 
 const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
-const ground = Bodies.rectangle(0 + trackLength/2, screen.height -15, trackLength, 30, { isStatic: true })
+const ground = Bodies.rectangle(trackLength/2, screen.height - 15, trackLength, 30, { isStatic: true })
 wall.render.visible = false
 ground.render.visible = true
 const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
@@ -124,12 +157,12 @@ document.addEventListener('keydown', function(event) {
   newCar.move(key);
   }
 });
-instructionbtn.addEventListener('click', (e) => {
+instructionbtn.addEventListener('click', () => {
   bool = false
   instructioncontainer.style.display = "block"
   body.append(instructioncontainer)
 })
-resume.addEventListener('click', (e) => {
+resume.addEventListener('click', () => {
   bool = true
   instructioncontainer.style.display = "none"
 })
