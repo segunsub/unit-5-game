@@ -51,7 +51,7 @@ class Game {
         //make hills and push into this.objects array
         function createHill(x,y, length, height){
             const vectors = [];
-            for(let i = x; i < x + length; i+=20){
+            for(let i = x; i < x + length; i+=100){
                 let vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height)
                 vectors.push(vector);
             }
@@ -60,8 +60,8 @@ class Game {
         }
         const hills = [];
         for(let i = 0; i < this.numHills; i++){
-            const hillWidth = Math.floor((this.length/this.numHills) - 1000);
-            const hill = createHill(2000 + (hillWidth * i * 2), screen.height - 70, hillWidth, Math.floor(Math.random() * 400 + 100))
+            const hillWidth = Math.floor((this.length/this.numHills - 1000));
+            const hill = createHill(5000 + (hillWidth * i), screen.height - 70, hillWidth, Math.floor(Math.random() * 400 + 100))
             console.log(hill.position);
             hills.push(hill);
         }
@@ -109,20 +109,3 @@ class Game {
         ]);
     }
 }
-
-/*
-sprite:
-texture: "../img/Finish.png"
-xOffset: 0.5
-xScale: 1
-yOffset: 0.9
-yScale: 1.3
-
-
-
-sprite:
-texture: "../img/Finish.png"
-xOffset: 0.5
-xScale: 1
-yOffset: 0.9
-yScale: 1.3*/

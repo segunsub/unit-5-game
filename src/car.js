@@ -49,6 +49,7 @@ class Car {
                     Body.applyForce( this.car.bodies[0], {x: this.car.bodies[0].position.x, y: this.car.bodies[0].position.y}, {x: 0.3, y: 0});
                     break;
                 }
+                console.log(this.car.bodies[0].speed);
             } else {
                 console.log("Out of gas");
                 //show icon out of gas

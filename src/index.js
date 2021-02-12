@@ -91,10 +91,7 @@ instructionclck.addEventListener('click', (e) => {
 
 exit.addEventListener('click', () => {
   instructioncontain.style.display = "none"
-})
-
-
-
+});
 
 let ptag = document.createElement('p')
 ptag.innerHTML = `<h1 class="h1">Controls</h1>
@@ -169,10 +166,10 @@ Engine.run(engine);
 Render.run(render);
 
 const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
-const newGas = new Gas(8090, screen.height - 70, "../img/gasicon.png");
+const newGas = new Gas(8090, screen.height - 100, "../img/gasicon.png");
 const newFinish = new FinishLine(window.innerWidth * 20, screen.height - 70, "../img/Finish.png")
 
-const newGame = new Game(newCar, window.innerWidth * 20, 10, newFinish, newGas);
+const newGame = new Game(newCar, window.innerWidth * 20, 8, newFinish, newGas);
 
 instructionbtn.addEventListener('click', () => {
   newGame.car.canMove = false
