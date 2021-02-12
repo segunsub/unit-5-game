@@ -49,9 +49,9 @@
   position: absolute;
   width: 300px;
   height: 300px;
-  top: 20%;
+  top: 30%;
   border-radius: 10px;
-  left: 50%;
+  left: 5%;
   background-color: gold
 }
 .controlsz {
@@ -59,7 +59,7 @@
   top: 1%;
   left: 91%;
   border-radius: 10px;
-  background-color: black;
+  background-color: white;
   color: gold;
 }
 .controls {
@@ -114,16 +114,35 @@ html {
 #musicontrol {
   position: absolute;
   text-align: center;
-  background-color: black;
-  left: 60%;
+  background-color: rgba(0,0,0,0.1);
+  left: 67%;
   top: 40%;
   height: 15%;
   border-radius: 20%;
   color: gold;
 }
+
 /* Animation */
+#instruction {
+  background: url(../svgs/help-outline.svg);
+  background-color: gold;
+  border: solid;
+  border-radius: 90%;
+  width: 80px;
+  height: 90px;
+  /* padding-top: 7px; */
+  background-size: cover;
+}
+#flex {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
 #play {
 margin-bottom: 10%;
+background: url(../svgs/play.svg);
+background-color: gold;
+background-size: cover;
 }
 .circle {
   border: solid;
@@ -132,13 +151,23 @@ margin-bottom: 10%;
   height: 70px;
   margin-right: 0px;
   padding-top: 7px;
+
+ 
 }
-#start {
-  padding-top: 30%;
-  
+#music {
+  background: url(../svgs/musical-notes.svg);
+  background-color: gold;
 }
-.circle:hover,.controlsz:hover,.controls:hover {
-  background-color: rgba(92, 83, 219, 0.432);
+#about {
+  background: url(../svgs/search-outline.svg);
+  background-color: gold;
+  width: 80px;
+  height: 90px;
+  background-size: cover;
+}
+
+#instruction:hover,#music:hover,.circle:hover,.controlsz:hover,.controls:hover {
+  /* background-color: rgba(92, 83, 219, 0.432); */
   -webkit-transform: scale(1.3);
   -ms-transform: scale(1.3);
   transform: scale(1.3);
