@@ -3,20 +3,46 @@ const body = document.getElementById('body')
 const intro = document.getElementById('intro')
 let tank = document.createElement("meter")
 tank.id = 'tanks'
+let title = document.getElementById('title')
  const buttonstart = document.getElementById('start')
  let instructionbtn = document.createElement('button')
  instructionbtn.classList.add('controls')
+ let music = document.createElement('audio')
+ let musicbtn = document.getElementById('music')
+ let musicontrol = document.createElement('div')
+ musicontrol.id = 'musicontrol'
+ musicontrol.innerHTML = `<h1>Volume Control</h1>`
+ let musicrange = document.getElementById('myRange')
+ let save = document.createElement('button')
+save.style.color = "gold"
+save.innerText = "Save"
+save.classList.add('resume')
+ musicontrol.append(musicrange,save)
+ musicbtn.addEventListener('click', () => {
+  save.style.backgroundColor = "black"
+  body.append(musicontrol)
+  musicontrol.style.display = "block"
+ })
+ save.addEventListener('click', () => {
+  musicontrol.style.display = "none"
+ })
+ music.id = 'play'
+ music.autoplay = 'true'
  window.onload = () => {
    console.log('working')
 
  }
-body.addEventListener('click', () => {
+
+ 
+musicbtn.addEventListener('click', () => {
+  body.append(music)
   audio.innerHTML = ''
-  audio.innerHTML = '<source src="sound/melodyloops-preview-badass-life-2m30s.mp3" type="audio/mp3">'
-  audio.volume = 0.7
+  music.innerHTML = '<source src="sound/melodyloops-preview-badass-life-2m30s.mp3" type="audio/mp3">'
+  setInterval(()=>{
+    music.volume = musicrange.value
+  }, 1000)
  })
  buttonstart.addEventListener("click",buttonstart.requestFullscreen);
-
 
 //  const instruction = document.createElement('button')
 //  instruction.innerText = "INSTRUCTIONS"
@@ -24,13 +50,16 @@ body.addEventListener('click', () => {
 //  intro.append(buttonstart)
 console.log('audio')
  buttonstart.addEventListener('click', () => {
+  music.innerHTML = ''
+  // body.removeChild(music)
+    audio.innerHTML = '<source src="sound/StartCar.mp3" type="audio/mp3">'
    body.removeChild(intro)
    canvas.style.position = "absolute"
    tank.style.position = "absolute"
    instructionbtn.style.position = "absolute"
-   audio.innerHTML = ''
-   audio.innerHTML = '<source src="sound/StartCar.mp3" type="audio/mp3">'
-   audio.volume = 0.1
+  //  song.src = "sound/StartCar.mp3"
+   audio.volume = 1
+  // body.append(music)
  })
 //  let introdiv = document.createElement('div')
 
@@ -90,19 +119,30 @@ tank.innerText = "50%"
 
 instructioncontainer.classList.add('container')
 let resume = document.createElement('button')
+let gamemusic = document.createElement('button')
 let restart = document.createElement('button')
 let controlpic = document.createElement('img')
 restart.classList.add('resume')
+gamemusic.classList.add('resume')
 resume.classList.add('resume')
 restart.innerText = "Restart"
 resume.innerHTML = `Resume`
+gamemusic.innerText = "Music"
 controlpic.classList.add('controlpic')
 controlpic.src = '../img/control.png'
   // let instructionbtn = document.createElement('button')
   // instructionbtn.classList.add('controls')
 instructionbtn.innerText = "Instructions"
 body.append(instructionbtn,tank)
-instructioncontainer.append(ptag,resume,restart,controlpic)
+instructioncontainer.append(ptag,resume,restart,gamemusic,controlpic)
+gamemusic.addEventListener('click', () => {
+  save.style.backgroundColor = "rgb(103,169,220)"
+  save.style.color = "black"
+  musicontrol.style.backgroundColor = "rgb(103,169,220)"
+  musicontrol.style.color = "black"
+  body.append(musicontrol)
+  musicontrol.style.display = "block"
+ })
   // instruction.addEventListener('click', () => {
   //    intro.append(instructioncontainer)
   // })
