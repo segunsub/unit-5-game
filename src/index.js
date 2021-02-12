@@ -37,7 +37,7 @@ save.classList.add('resume')
 musicbtn.addEventListener('click', () => {
   body.append(music)
   audio.innerHTML = ''
-  music.innerHTML = '<source src="sound/melodyloops-preview-badass-life-2m30s.mp3" type="audio/mp3">'
+  music.innerHTML = '<source src="sound/CarRace.mp3" type="audio/mp3">'
   setInterval(()=>{
     music.volume = musicrange.value
   }, 1000)
