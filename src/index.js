@@ -2,9 +2,10 @@ let audio = document.getElementById('player')
 const body = document.getElementById('body')
 const intro = document.getElementById('intro')
 let tank = document.createElement("meter")
+let flex = document.getElementById('flex')
 tank.id = 'tanks'
 let title = document.getElementById('title')
- const buttonstart = document.getElementById('start')
+ const buttonstart = document.getElementById('play')
  let instructionbtn = document.createElement('button')
  instructionbtn.classList.add('controls')
  let music = document.createElement('audio')
@@ -68,9 +69,9 @@ console.log('audio')
 
 
 let instructionclck = document.createElement('button')
-instructionclck.classList.add('controlsz')
-instructionclck.innerText = "Instructions"
-body.append(instructionclck)
+// instructionclck.classList.add('circle')
+instructionclck.id = "instruction"
+flex.append(instructionclck)
 let pintro = document.createElement('p')
 pintro.innerHTML = `<h1 background-color="gold">Controls</h1>
  The controls are the arrow keys
@@ -133,9 +134,13 @@ instructionbtn.innerText = "Instructions"
 body.append(instructionbtn,tank)
 instructioncontainer.append(ptag,resume,restart,gamemusic,controlpic)
 gamemusic.addEventListener('click', () => {
+  music.innerHTML = '<source src="sound/CarRace.mp3" type="audio/mp3">'
+  setInterval(()=>{
+    music.volume = musicrange.value
+  }, 1000)
   save.style.backgroundColor = "rgb(103,169,220)"
   save.style.color = "black"
-  musicontrol.style.backgroundColor = "rgb(103,169,220)"
+  musicontrol.style.backgroundColor = "rgba(103,169,220, 0.1)"
   musicontrol.style.color = "black"
   body.append(musicontrol)
   musicontrol.style.display = "block"
