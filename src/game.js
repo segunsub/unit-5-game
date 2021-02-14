@@ -51,17 +51,24 @@ class Game {
         //make hills and push into this.objects array
         function createHill(x,y, length, height){
             const vectors = [];
-            for(let i = x; i < x + length; i+=100){
-                let vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height)
+            for(let i = x; i < x + length; i+=20){
+                let vector;
+                if(i + 20 >= x + length){
+                    vector = Vector.create(i,y);
+                } else {
+                    vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height);
+                }
                 vectors.push(vector);
             }
-            const hill = Bodies.fromVertices(x, screen.height - 30, vectors, {isStatic: true});
+            const hill = Bodies.fromVertices(x,y, vectors, {isStatic: true});
             return hill;
         }
         const hills = [];
         for(let i = 0; i < this.numHills; i++){
-            const hillWidth = Math.floor((this.length/this.numHills - 1000));
-            const hill = createHill(5000 + (hillWidth * i), screen.height - 70, hillWidth, Math.floor(Math.random() * 400 + 100))
+            const hillWidth = Math.floor(((this.length - 4000)/this.numHills));
+            const hillHeight = Math.floor(Math.random() * 400 + 100);
+            const hill = createHill(5000 + ((hillWidth) * i), screen.height - ((hillHeight - 50)/2), hillWidth, hillHeight)
+            //
             console.log(hill.position);
             hills.push(hill);
         }
