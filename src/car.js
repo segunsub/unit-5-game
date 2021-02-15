@@ -34,6 +34,14 @@ class Car {
         return this.car;
     };
 
+    isUpsideDown(){
+        const rotation = this.car.bodies[0].angle;
+        if(rotation < -Math.PI/2){
+            return true;
+        }
+        return false
+    }
+
     move(eventKey){
         if(this.canMove){
             // console.log(Body);
@@ -49,6 +57,7 @@ class Car {
                     Body.applyForce( this.car.bodies[0], {x: this.car.bodies[0].position.x, y: this.car.bodies[0].position.y}, {x: 0.3, y: 0});
                     break;
                 }
+                console.log(this.car.bodies[0].angle);
             } else {
                 console.log("Out of gas");
                 //show icon out of gas

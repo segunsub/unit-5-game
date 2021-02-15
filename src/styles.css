@@ -16,7 +16,7 @@
 }
 .author {
     margin-top: 0%;
-    margin-bottom: 190px;
+    margin-bottom: 100px;
 }
 #body {
   margin: 0%;
@@ -152,7 +152,8 @@ html {
   width: 40%;
 }
 #play {
-margin-bottom: 10%;
+margin: 10px;
+margin-bottom: 50px;
 background: url(../svgs/play.svg);
 background-color: gold;
 background-size: cover;
