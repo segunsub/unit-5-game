@@ -66,7 +66,7 @@ class Game {
         const hills = [];
         for(let i = 0; i < this.numHills; i++){
             const hillWidth = Math.floor(((this.length - 4000)/this.numHills));
-            const hillHeight = Math.floor(Math.random() * 400 + 100);
+            const hillHeight = Math.floor(Math.random() * 150 + 100);
             const hill = createHill(5000 + ((hillWidth) * i), screen.height - ((hillHeight - 50)/2), hillWidth, hillHeight)
             //
             console.log(hill.position);
