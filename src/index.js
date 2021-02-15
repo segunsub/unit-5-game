@@ -202,8 +202,11 @@ let tankmeasure = setInterval(()=>{
   }else {
     tankicon.style.display = "none"
     }
-  tank.value = newGame.car.gas
 }, 1000)
+
+let fuelDeplete = setInterval(() => {
+  tank.value = newGame.car.gas
+})
 
 let lowfuel = setInterval(()=>{
   tankicon.style.display = "none"
