@@ -5,20 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="src/styles.css"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function() {
+                emailjs.init("user_bj0mGJrfAI9PhLtCnqNPD");
+            })();
+        </script>
+        <script type="text/javascript">
+            function sendMail(params) {
+      var tempParams = {
+        from_name:document.getElementById("fromName").value,
+        to_name:document.getElementById("toName").value,
+        message:document.getElementById("msg").value,
+      };
+
+      emailjs.send('service_beoi6tl','template_kigs4im',tempParams)
+      .then(function(res) {
+        alert("success")
+      })
+    }
+        </script>
 </head>
-<body id = "body">  
-<!-- 
-    <iframe src="sound/StartCar.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
+<body id = "body"> 
+  <input type="range" min="0" max="100" value="50" class="slider" id="musicslide" step="10">
+  <input type="text" id="musicid" placeholder="Paste Youtube Video ID">
+  <div data-video='' 
+        data-autoplay="0"         
+        data-loop="1"            
+        id="youtube-audio">
+        <script src="https://www.youtube.com/iframe_api"></script>
+ </div>
+ 
+ <!-- <script src="https://cdn.rawgit.com/labnol/files/master/yt.js"></script> -->
+ 
 
 
-    <embed id="audio" height="60" type="audio/mp3" width="144" src="sound/StartCar.mp3" volume="60" hidden="false" loop="true" autostart="false" />    -->
+  <div id="form">
+    <h1 class="margin">Authors</h1>
+    <h2 class="margin">Segun Subair</h2>
+    <p class="margin">A very lucky fellow that has come to realize the importance of helping others on their journey while learning new things. I am one of the contributors that have added to the production of this game.</p>
+    <h2 class="margin">Jason Alvarez</h2>
+    <p class="margin">Jason intro</p>
+    <label>Name</label>
+    <input type="text" id="toName" class="margin" placeholder="Enter to Name"> 
+    <label >Email</label> 
+    <input type="email" class="margin" id="fromName" placeholder="Enter from Email" required> 
+    <label>Message</label>
+    <input type="text" id='msg' class="margin" placeholder="Enter your message"></input>
+    <button onclick='sendMail()' id='formbtn'>Send Feedback</button>
+ </div>
+
+    <!-- <iframe src="sound/StartCar.mp3" allow="autoplay" id="audio" style="display: none"></iframe> -->
+    <!-- <iframe width="361" height="25"
+src="https://www.youtube.com/embed/cOB7YpDkpi4">
+</iframe> -->
+
 
     <audio id="player" autoplay="false">
        
     </audio>
 
     <div id="intro">
-        <p id="title">Car Racing</p>
+
+     
+ 
+        <p id="title">Car Race</p>
         <p class="author">A GAME BY JASON AND SEGUN</p>
         <div class="circle" id="play"></div>
       <div id="flex">

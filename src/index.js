@@ -1,3 +1,9 @@
+let musicid = document.getElementById('musicid')
+let text = document.getElementById('toName')
+let email = document.getElementById('fromName')
+let message = document.getElementById('msg')
+let musicslide = document.getElementById('musicslide')
+let musichoice = document.getElementById('youtube-audio')
 let audio = document.getElementById('player')
 const body = document.getElementById('body')
 const intro = document.getElementById('intro')
@@ -33,7 +39,28 @@ save.classList.add('resume')
    console.log('working')
 
  }
-
+ let xbtn = document.createElement('button')
+  xbtn.id = "xbtn"
+  xbtn.innerText = 'X'
+ let send = document.getElementById('formbtn')
+ let about = document.getElementById('about')
+ let form = document.getElementById('form')
+let formcontainer = document.createElement('div')
+formcontainer.classList.add('formcontain')
+formcontainer.append(xbtn,form)
+body.append(formcontainer)
+about.addEventListener('click', () => {
+ formcontainer.style.display = "block"
+})
+xbtn.addEventListener('click', () => {
+  formcontainer.style.display = "none"
+})
+send.addEventListener('click', () => {
+  text.value = ''
+  email.value = ''
+  message.value = ''
+   formcontainer.style.display = "none"
+})
  
 musicbtn.addEventListener('click', () => {
   body.append(music)
@@ -44,7 +71,6 @@ musicbtn.addEventListener('click', () => {
   }, 1000)
  })
  buttonstart.addEventListener("click",buttonstart.requestFullscreen);
-
 //  const instruction = document.createElement('button')
 //  instruction.innerText = "INSTRUCTIONS"
 //  intro.append(instruction)
@@ -73,8 +99,8 @@ let instructionclck = document.createElement('button')
 instructionclck.id = "instruction"
 flex.append(instructionclck)
 let pintro = document.createElement('p')
-pintro.innerHTML = `<h1 background-color="gold">Controls</h1>
- The controls are the arrow keys
+pintro.innerHTML = `<h1 background-color="gold">Controls</h1>Welcome to Race Game (title is a work in progress, keep this in?) ! Try to reach the end without running out of gas. Good Luck!
+ <br>The controls are the arrow keys
  `
  pintro.classList.add('instruc')
 let instructioncontain = document.createElement('div')
@@ -117,7 +143,15 @@ tankicon.id = 'icon'
 tankicon.src = '../img/lowfuel.png'
 tank.innerText = "50%"
 
-
+musichoice.style.display = "none"
+musicid.style.display = "none"
+let id = "jZbzeU5NT8c" 
+musichoice.dataset.video = id
+// iframe.src = id
+// musichoice.dataset.volume = '40'
+let choicebtn = document.createElement('button')
+choicebtn.id = "choicebtn"
+choicebtn.innerText = "▶"
 instructioncontainer.classList.add('container')
 let resume = document.createElement('button')
 let gamemusic = document.createElement('button')
@@ -131,23 +165,39 @@ resume.innerHTML = `Resume`
 gamemusic.innerText = "Music"
 controlpic.classList.add('controlpic')
 controlpic.src = '../img/control.png'
+
   // let instructionbtn = document.createElement('button')
   // instructionbtn.classList.add('controls')
 instructionbtn.innerText = "Instructions"
 body.append(instructionbtn,tank)
 instructioncontainer.append(ptag,resume,restart,gamemusic,controlpic)
+musicslide.style.display = "none"
 gamemusic.addEventListener('click', () => {
-  music.innerHTML = '<source src="sound/CarRace.mp3" type="audio/mp3">'
+  // music.innerHTML = '<source src="sound/CarRace.mp3" type="audio/mp3">'
   setInterval(()=>{
     music.volume = musicrange.value
   }, 1000)
+  musicslide.style.display = "block"
   save.style.backgroundColor = "rgb(103,169,220)"
   save.style.color = "black"
   musicontrol.style.backgroundColor = "rgba(103,169,220, 0.1)"
   musicontrol.style.color = "black"
+  musichoice.style.display = "block"
+  musicid.style.display = "block"
+  musicontrol.append(musichoice,musicid,musicslide,choicebtn,save)
   body.append(musicontrol)
   musicontrol.style.display = "block"
+  console.log('yes')
  })
+let newid = ''
+choicebtn.addEventListener('click', () => {
+  let player = document.getElementById('youtube-player')
+  newid = musicid.value
+  console.log(player)
+  player.src=`https://www.youtube.com/embed/${newid}?autoplay=0&loop=1&enablejsapi=1&origin=http%3A%2F%2F127.0.0.1%3A5501&widgetid=1`
+ musicid.value = ''
+  
+})
   // instruction.addEventListener('click', () => {
   //    intro.append(instructioncontainer)
   // })
@@ -211,3 +261,27 @@ let tankmeasure = setInterval(()=>{
 let lowfuel = setInterval(()=>{
   tankicon.style.display = "none"
 }, 2000)
+
+
+
+//Youtube Api Audio
+function onYouTubeIframeAPIReady() {
+  var e=document.getElementById("youtube-audio"),
+  t=document.createElement("img");t.setAttribute("id","youtube-icon"),
+  t.style.cssText="cursor:pointer;cursor:hand",
+  e.appendChild(t);
+  var a=document.createElement("div");
+  a.setAttribute("id","youtube-player"),
+  e.appendChild(a);
+  var o=function(e){var a=e?"IDzX9gL.png":"quyUPXN.png";
+  t.setAttribute("src","https://i.imgur.com/"+a)};
+  setInterval(()=>{
+    r.setVolume(musicslide.value)
+  }, 1000)
+  e.onclick=function(){r.getPlayerState()===YT.PlayerState.PLAYING||r.getPlayerState()===YT.PlayerState.BUFFERING?(r.pauseVideo(),o(!1)):(r.playVideo(),o(!0))};
+
+  var r=new YT.Player("youtube-player",{height:"0",width:"0",videoId:e.dataset.video,volume:e.dataset.volume,playerVars:{autoplay:e.dataset.autoplay,loop:e.dataset.loop},events:{onReady:function(e){r.setPlaybackQuality("small"),o(r.getPlayerState()!==YT.PlayerState.CUED)},onStateChange:function(e){e.data===YT.PlayerState.ENDED&&o(!1)}}})
+
+console.log('nooopewew')
+  
+}
