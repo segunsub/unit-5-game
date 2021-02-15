@@ -25,6 +25,7 @@ class FinishLine {
 
     collision(obj){
         console.log("you reached the end");
+        alert("Win Win Win :)")
         //implement pause/restart/next level
     }
 }
