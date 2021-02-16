@@ -72,7 +72,7 @@ musicbtn.addEventListener('click', () => {
   // body.removeChild(music)
     audio.innerHTML = '<source src="sound/StartCar.mp3" type="audio/mp3">'
    body.removeChild(intro)
-   canvas.style.position = "absolute"
+  //  canvas.style.position = "absolute"
    tank.style.position = "absolute"
    instructionbtn.style.position = "absolute"
    audio.volume = 1
@@ -178,7 +178,7 @@ const trackLength = window.innerWidth * 20;
 const render = Render.create({
     element: document.body,
     engine: engine,
-    canvas: canvas,
+    // canvas: canvas,
     options: {
       width: screen.width,
       height: screen.height,

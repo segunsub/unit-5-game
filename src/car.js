@@ -44,7 +44,7 @@ class Car {
 
     move(eventKey){
         if(this.canMove){
-            // console.log(Body);
+
             if(this.gas > 0){
                 this.position = this.car.bodies[0].position;
                 this.gas -= .5;
@@ -57,9 +57,8 @@ class Car {
                     Body.applyForce( this.car.bodies[0], {x: this.car.bodies[0].position.x, y: this.car.bodies[0].position.y}, {x: 0.3, y: 0});
                     break;
                 }
-                console.log(this.car.bodies[0].angle);
             } else {
-                console.log("Out of gas");
+              
                 //show icon out of gas
             }
         }
@@ -69,7 +68,7 @@ class Car {
             
         const carIds = {};
         this.car.bodies.forEach(element => carIds[element.id] = true);
-        // console.log(target);
+      
         if(target.matter.type === "composite"){
             const targetIds = {};
             if(target.bodies){
@@ -82,13 +81,13 @@ class Car {
                 if (targetIds[pair.bodyA.id] || targetIds[pair.bodyB.id]) {
                     pair.bodyA.render.fillStyle = '#03fc2c';
                     pair.bodyB.render.fillStyle = '#03fc2c';
-                    // console.log("You reached the target");
+              
                     return target.collision(this);
                 }
                 }
             });            
         } else if(target.matter.type === "body") {
-            // console.log(event.pairs);
+         
             const targetIds = {};
             targetIds[target.matter.id] = true;
             let pairs = event.pairs.filter(pair => {
@@ -96,7 +95,7 @@ class Car {
                 if (targetIds[pair.bodyA.id] || targetIds[pair.bodyB.id]) {
                     pair.bodyA.render.fillStyle = '#03fc2c';
                     pair.bodyB.render.fillStyle = '#03fc2c';
-                    // console.log("You reached the target");
+            
                     return target.collision(this);
                 }
                 }
