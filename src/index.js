@@ -82,7 +82,7 @@ let instructionclck = document.createElement('button')
 instructionclck.id = "instruction"
 flex.append(instructionclck)
 let pintro = document.createElement('p')
-pintro.innerHTML = `<h1 background-color="gold">Controls</h1>Welcome to Race Game (title is a work in progress, keep this in?) ! Try to reach the end without running out of gas. Good Luck!
+pintro.innerHTML = `<h1 background-color="gold">Controls</h1>Welcome to Race Game ! Try to reach the end without running out of gas. Good Luck!
  <br>The controls are the arrow keys
  `
  pintro.classList.add('instruc')
@@ -193,9 +193,11 @@ Render.run(render);
 
 const newCar = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png')
 const newGas = new Gas(8090, screen.height - 100, "../img/gasicon.png");
+const newGas2 = new Gas(19090, screen.height - 100, "../img/gasicon.png");
+const newGas3 = new Gas(27090, screen.height - 100, "../img/gasicon.png");
 const newFinish = new FinishLine(window.innerWidth * 20, screen.height - 70, "../img/Finish.png")
 
-const newGame = new Game(newCar, window.innerWidth * 20, 8, newFinish, newGas);
+const newGame = new Game(newCar, window.innerWidth * 20, 8, newFinish, newGas, newGas2, newGas3);
 
 instructionbtn.addEventListener('click', () => {
   newGame.car.canMove = false
@@ -248,5 +250,5 @@ function onYouTubeIframeAPIReady() {
   e.onclick=function(){r.getPlayerState()===YT.PlayerState.PLAYING||r.getPlayerState()===YT.PlayerState.BUFFERING?(r.pauseVideo(),o(!1)):(r.playVideo(),o(!0))};
 
   var r=new YT.Player("youtube-player",{height:"0",width:"0",videoId:e.dataset.video,volume:e.dataset.volume,playerVars:{autoplay:e.dataset.autoplay,loop:e.dataset.loop},events:{onReady:function(e){r.setPlaybackQuality("small"),o(r.getPlayerState()!==YT.PlayerState.CUED)},onStateChange:function(e){e.data===YT.PlayerState.ENDED&&o(!1)}}})
-   
+
 }
