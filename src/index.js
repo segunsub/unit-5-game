@@ -242,7 +242,6 @@ function onYouTubeIframeAPIReady() {
   var a=document.createElement("div");
   a.setAttribute("id","youtube-player"),
   e.appendChild(a);
-  console.log(t)
   t.innerText = 'Play'
   setInterval(()=>{
     r.setVolume(musicslide.value)
