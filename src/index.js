@@ -35,10 +35,6 @@ save.classList.add('resume')
  })
  music.id = 'play'
  music.autoplay = 'true'
- window.onload = () => {
-   console.log('working')
-
- }
  let xbtn = document.createElement('button')
   xbtn.id = "xbtn"
   xbtn.innerText = 'X'
@@ -71,11 +67,6 @@ musicbtn.addEventListener('click', () => {
   }, 1000)
  })
  buttonstart.addEventListener("click",buttonstart.requestFullscreen);
-//  const instruction = document.createElement('button')
-//  instruction.innerText = "INSTRUCTIONS"
-//  intro.append(instruction)
-//  intro.append(buttonstart)
-console.log('audio')
  buttonstart.addEventListener('click', () => {
   music.innerHTML = ''
   // body.removeChild(music)
@@ -84,18 +75,10 @@ console.log('audio')
    canvas.style.position = "absolute"
    tank.style.position = "absolute"
    instructionbtn.style.position = "absolute"
-  //  song.src = "sound/StartCar.mp3"
    audio.volume = 1
-  // body.append(music)
  })
-//  let introdiv = document.createElement('div')
-
-//  intro.append(introdiv)
-//  introdiv.style.backgroundColor = "blue"
-
 
 let instructionclck = document.createElement('button')
-// instructionclck.classList.add('circle')
 instructionclck.id = "instruction"
 flex.append(instructionclck)
 let pintro = document.createElement('p')
@@ -125,7 +108,6 @@ ptag.innerHTML = `<h1 class="h1">Controls</h1>
  The controls are the arrow keys
  `
  ptag.classList.add('instruc')
-//  introdiv.append(ptag)
 
 
 const { Engine, Render, World, Bounds, Bodies, Body, Constraint, Composites, Composite, Events, Vector  } = Matter;
@@ -144,8 +126,6 @@ musichoice.style.display = "none"
 musicid.style.display = "none"
 let id = "jZbzeU5NT8c" 
 musichoice.dataset.video = id
-// iframe.src = id
-// musichoice.dataset.volume = '40'
 let choicebtn = document.createElement('button')
 choicebtn.id = "choicebtn"
 choicebtn.innerText = "▶"
@@ -162,15 +142,11 @@ resume.innerHTML = `Resume`
 gamemusic.innerText = "Music"
 controlpic.classList.add('controlpic')
 controlpic.src = '../img/control.png'
-
-  // let instructionbtn = document.createElement('button')
-  // instructionbtn.classList.add('controls')
 instructionbtn.innerText = "Instructions"
 body.append(instructionbtn,tank)
 instructioncontainer.append(ptag,resume,restart,gamemusic,controlpic)
 musicslide.style.display = "none"
 gamemusic.addEventListener('click', () => {
-  // music.innerHTML = '<source src="sound/CarRace.mp3" type="audio/mp3">'
   setInterval(()=>{
     music.volume = musicrange.value
   }, 1000)
@@ -184,20 +160,15 @@ gamemusic.addEventListener('click', () => {
   musicontrol.append(musichoice,musicid,musicslide,choicebtn,save)
   body.append(musicontrol)
   musicontrol.style.display = "block"
-  console.log('yes')
  })
 let newid = ''
 choicebtn.addEventListener('click', () => {
   let player = document.getElementById('youtube-player')
   newid = musicid.value
-  console.log(player)
   player.src=`https://www.youtube.com/embed/${newid}?autoplay=0&loop=1&enablejsapi=1&origin=http%3A%2F%2F127.0.0.1%3A5501&widgetid=1`
  musicid.value = ''
   
 })
-  // instruction.addEventListener('click', () => {
-  //    intro.append(instructioncontainer)
-  // })
 
 //Game logic
 
@@ -239,10 +210,6 @@ restart.addEventListener('click', newGame.reset);
 let update = setInterval(()=>{
   render.bounds.min.x = 154 - 800 + newGame.car.car.bodies[0].position.x;
   render.bounds.max.x = 154 - 800 + 2500 + newGame.car.car.bodies[0].position.x;
-  
-  // console.log(newCar.car.bodies[0].bounds.min.y)
-  // render.bounds.min.y = 653 - 1760 + newCar.car.bodies[0].position.y;
-  // render.bounds.max.y = 653 - 1760 + 1200 + newCar.car.bodies[0].position.y;
 }, 1);
 
 let tankmeasure = setInterval(()=>{
@@ -281,7 +248,5 @@ function onYouTubeIframeAPIReady() {
   e.onclick=function(){r.getPlayerState()===YT.PlayerState.PLAYING||r.getPlayerState()===YT.PlayerState.BUFFERING?(r.pauseVideo(),o(!1)):(r.playVideo(),o(!0))};
 
   var r=new YT.Player("youtube-player",{height:"0",width:"0",videoId:e.dataset.video,volume:e.dataset.volume,playerVars:{autoplay:e.dataset.autoplay,loop:e.dataset.loop},events:{onReady:function(e){r.setPlaybackQuality("small"),o(r.getPlayerState()!==YT.PlayerState.CUED)},onStateChange:function(e){e.data===YT.PlayerState.ENDED&&o(!1)}}})
-
-console.log('nooopewew')
-  
+   
 }

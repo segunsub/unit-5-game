@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Racing</title>
+    <link rel="icon" href="../unit-5-game/img/images1.png" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="src/styles.css"/>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
         <script type="text/javascript">
@@ -27,6 +28,7 @@
         </script>
 </head>
 <body id = "body"> 
+  
   <input type="range" min="0" max="100" value="50" class="slider" id="musicslide" step="10">
   <input type="text" id="musicid" placeholder="Paste Youtube Video ID">
   <div data-video='' 
@@ -35,9 +37,6 @@
         id="youtube-audio">
         <script src="https://www.youtube.com/iframe_api"></script>
  </div>
- 
- <!-- <script src="https://cdn.rawgit.com/labnol/files/master/yt.js"></script> -->
- 
 
 
   <div id="form">
@@ -54,11 +53,6 @@
     <input type="text" id='msg' class="margin" placeholder="Enter your message"></input>
     <button onclick='sendMail()' id='formbtn'>Send Feedback</button>
  </div>
-
-    <!-- <iframe src="sound/StartCar.mp3" allow="autoplay" id="audio" style="display: none"></iframe> -->
-    <!-- <iframe width="361" height="25"
-src="https://www.youtube.com/embed/cOB7YpDkpi4">
-</iframe> -->
 
 
     <audio id="player" autoplay="false">
@@ -78,8 +72,6 @@ src="https://www.youtube.com/embed/cOB7YpDkpi4">
       </div>
         <input type="range" min="0" max="1" value="0.5" class="slider" id="myRange" step="0.1">
     </div>
-    <!-- <h1>Creating the car</h1> -->
-     <!-- <img src="terrain.svg" alt='svg' > -->
      <canvas id="canvas"></canvas>
     <script language = "javascript" type="text/javascript" src= "src/game.js"></script>
     <script language = "javascript" type="text/javascript" src= "src/finishLine.js"></script>
@@ -87,7 +79,5 @@ src="https://www.youtube.com/embed/cOB7YpDkpi4">
     <script language = "javascript" type="text/javascript" src= "src/car.js"></script>
     <script language="javascript" type="text/javascript" src="src/matter.js"></script>
     <script language="javascript" type="text/javascript" src="src/index.js"></script>
-   
-    <!-- <button id="controls">Instructions</button> -->
 </body>
 </html>
