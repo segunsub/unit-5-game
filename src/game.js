@@ -3,6 +3,7 @@ class Game {
         this.car = car;
         this.length = length;
         this.objects = objects;
+        this.hills = [];
         this.numHills = hillNum;
         this.content = this.initGame();
     }
@@ -20,6 +21,7 @@ class Game {
         }
         const objectMatter = this.objects.map(obj => obj.matter);
         this.genHills().forEach(hill => {
+            this.hills.push(hill);
             objectMatter.push(hill);
             // console.log(hill.position);
         });
@@ -43,6 +45,7 @@ class Game {
                 newGame.car.move(event.key);
             }
         });
+
         return world;
     }
 
@@ -51,17 +54,24 @@ class Game {
         function createHill(x,y, length, height){
             const vectors = [];
             for(let i = x; i < x + length; i+=20){
-                let vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height)
+                let vector;
+                if(i + 20 >= x + length){
+                    vector = Vector.create(i,y);
+                } else {
+                    vector = Vector.create(i,y - Math.sin(((i-x)/length )* Math.PI) * height);
+                }
                 vectors.push(vector);
             }
-            const hill = Bodies.fromVertices(x, screen.height - 30, vectors, {isStatic: true});
+            const hill = Bodies.fromVertices(x,y, vectors, {isStatic: true});
             return hill;
         }
         const hills = [];
         for(let i = 0; i < this.numHills; i++){
-            const hillWidth = Math.floor((this.length/this.numHills) - 1000);
-            const hill = createHill(2000 + (hillWidth * i * 2), screen.height - 70, hillWidth, Math.floor(Math.random() * 400 + 100))
-            console.log(hill.position);
+            const hillWidth = Math.floor(((this.length - 4000)/this.numHills));
+            const hillHeight = Math.floor(Math.random() * 150 + 100);
+            const hill = createHill(5000 + ((hillWidth) * i), screen.height - ((hillHeight - 50)/2), hillWidth, hillHeight)
+            //
+            // console.log(hill.position);
             hills.push(hill);
         }
         return hills;
@@ -78,9 +88,11 @@ class Game {
     reset(){  
         //Remove everything in the world
         world.bodies.forEach(body => World.remove(world, body));
-        this.objects.forEach(obj => World.remove(world,obj.matter));
-        this.objects = [];
-        World.remove(world, this.car.car);
+        newGame.objects.forEach(obj => World.remove(world,obj.matter));
+        newGame.objects = [];
+        World.remove(world, newGame.car.car);
+        newGame.hills.forEach(hill => World.remove(world, hill));
+        newGame.hills = [];
         
         //Making everything again
         const wall = Bodies.rectangle(0 + 15, screen.height/2, 60, screen.height, { isStatic: true });
@@ -92,36 +104,20 @@ class Game {
             texture: "../img/undergroundtexture.png",
             xScale: 40, yScale: 6.3, xOffset: 0.5, yOffset: 0.5
         }
-        this.car = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png');
-        this.objects.push(new Gas(8090, screen.height - 70, "../img/gasicon.png"));
-        this.objects.push(new FinishLine(trackLength, screen.height - 70, "../img/Finish.png"));
-        const objectMatter = this.objects.map(obj => obj.matter);
-        console.log(objectMatter);
+        newGame.car = new Car(400, screen.height - 50,"../img/car-body.png", '../img/car-wheel.png');
+        newGame.objects.push(new Gas(8090, screen.height - 70, "../img/gasicon.png"));
+        newGame.objects.push(new FinishLine(trackLength, screen.height - 70, "../img/Finish.png"));
+        const objectMatter = newGame.objects.map(obj => obj.matter);
+        const hills = newGame.genHills()
 
         //Adding everything back in
         World.add(world, [
-            this.car.car,
+            newGame.car.car,
             ground,
             wall,
+            ...hills,
             underground,
             ...objectMatter
         ]);
     }
 }
-
-/*
-sprite:
-texture: "../img/Finish.png"
-xOffset: 0.5
-xScale: 1
-yOffset: 0.9
-yScale: 1.3
-
-
-
-sprite:
-texture: "../img/Finish.png"
-xOffset: 0.5
-xScale: 1
-yOffset: 0.9
-yScale: 1.3*/

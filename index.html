@@ -3,24 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Car Racing</title>
     <link rel="stylesheet" type="text/css" href="src/styles.css"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function() {
+                emailjs.init("user_bj0mGJrfAI9PhLtCnqNPD");
+            })();
+        </script>
+        <script type="text/javascript">
+            function sendMail(params) {
+      var tempParams = {
+        from_name:document.getElementById("fromName").value,
+        to_name:document.getElementById("toName").value,
+        message:document.getElementById("msg").value,
+      };
+
+      emailjs.send('service_beoi6tl','template_kigs4im',tempParams)
+      .then(function(res) {
+        alert("success")
+      })
+    }
+        </script>
 </head>
-<body id = "body">     
+<body id = "body"> 
+  
+  <input type="range" min="0" max="100" value="50" class="slider" id="musicslide" step="10">
+  <input type="text" id="musicid" placeholder="Paste Youtube Video ID">
+  <div data-video='' 
+        data-autoplay="0"         
+        data-loop="1"            
+        id="youtube-audio">
+        <script src="https://www.youtube.com/iframe_api"></script>
+ </div>
+
+
+
+  <div id="form">
+    <h1 class="margin">Authors</h1>
+    <h2 class="margin">Segun Subair</h2>
+    <p class="margin">A very lucky fellow that has come to realize the importance of helping others on their journey while learning new things. I am one of the contributors that have added to the production of this game.</p>
+    <h2 class="margin">Jason Alvarez</h2>
+    <p class="margin">A victim of bad documentation. Worked on implementing some trig and methods of not breaking a fragile physics engine library.</p>
+    <label>Name</label>
+    <input type="text" id="toName" class="margin" placeholder="Enter to Name"> 
+    <label >Email</label> 
+    <input type="email" class="margin" id="fromName" placeholder="Enter from Email" required> 
+    <label>Message</label>
+    <input type="text" id='msg' class="margin" placeholder="Enter your message"></input>
+    <button onclick='sendMail()' id='formbtn'>Send Feedback</button>
+ </div>
+
+
+    <audio id="player" autoplay="false">
+       
+    </audio>
+
     <div id="intro">
-        <p id="title">Car Racing</p>
+
+     
+ 
+        <p id="title">Car Race</p>
         <p class="author">A GAME BY JASON AND SEGUN</p>
-        <div id="play"><p id="start">Start</p></div>
-    <!-- <h1>Creating the car</h1> -->
-     <!-- <img src="terrain.svg" alt='svg' > -->
-     <canvas id="canvas"></canvas>
+        <div class="circle" id="play"></div>
+      <div id="flex">
+        <div class="circle" id="music"></div>
+        <button class='circle' id="about"></button>
+      </div>
+        <input type="range" min="0" max="1" value="0.5" class="slider" id="myRange" step="0.1">
+    </div>
+     <!-- <canvas id="canvas"></canvas> -->
     <script language = "javascript" type="text/javascript" src= "src/game.js"></script>
     <script language = "javascript" type="text/javascript" src= "src/finishLine.js"></script>
     <script language = "javascript" type="text/javascript" src= "src/gas.js"></script>
     <script language = "javascript" type="text/javascript" src= "src/car.js"></script>
     <script language="javascript" type="text/javascript" src="src/matter.js"></script>
     <script language="javascript" type="text/javascript" src="src/index.js"></script>
-   
-    <!-- <button id="controls">Instructions</button> -->
 </body>
 </html>

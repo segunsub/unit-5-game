@@ -9,7 +9,7 @@ class FinishLine {
     }
 
     initFinish(){
-        this.matter = Bodies.rectangle(this.position.x, this.position.y, 150, 150, { isStatic: true });
+        this.matter = Bodies.rectangle(this.position.x, this.position.y, 150, 1000, { isStatic: true });
         // this.matter.forEach(element => {
         //     Body.setDensity(element, .0000001);
         // });
@@ -25,6 +25,7 @@ class FinishLine {
 
     collision(obj){
         console.log("you reached the end");
+        alert("Win Win Win :)")
         //implement pause/restart/next level
     }
 }
